@@ -1,14 +1,14 @@
 export default function decorate(block) {
-  const assetPath = (block.dataset.videoasset || "").trim();
+  const assetPath = (block.dataset.videoasset || '').trim();
 
   if (!assetPath) {
-    block.innerHTML = "<p>No video selected</p>";
+    block.innerHTML = '<p>No video selected</p>';
     return;
   }
 
-  let videoHtml = "";
+  let videoHtml = '';
 
-  if (assetPath.includes("vimeo.com")) {
+  if (assetPath.includes('vimeo.com')) {
     const match = assetPath.match(/vimeo\.com\/(?:video\/)?(\d+)/);
     const videoId = match ? match[1] : null;
     if (videoId) {
@@ -21,9 +21,9 @@ src="https://player.vimeo.com/video/${videoId}"
           allowfullscreen>
         </iframe>`;
     } else {
-      videoHtml = "<p>Invalid Vimeo URL</p>";
+      videoHtml = '<p>Invalid Vimeo URL</p>';
     }
-  } else if (assetPath.endsWith(".mp4")) {
+  } else if (assetPath.endsWith('git statua.mp4')) {
     videoHtml = `
       <video controls width="640" height="360">
         <source src="${assetPath}" type="video/mp4">
