@@ -238,7 +238,10 @@
         "valueType": "string",
         "name": "videoAsset",
         "label": "Select video",
-        "multi": false
+        "multi": false,
+        "types": [
+          "dam:Asset"
+        ]
       },
       {
         "component": "text",
