@@ -52,7 +52,8 @@
         "columns",
         "fragment",
         "embed-adaptive-form",
-        "video"
+        "video",
+        "video-gallery"
       ]
     }
   ]

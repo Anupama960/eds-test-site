@@ -231,6 +231,28 @@
     ]
   },
   {
+    "id": "video-gallery",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "videoAsset",
+        "label": "Select video",
+        "multi": true,
+        "types": [
+          "dam:Asset"
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "caption",
+        "label": "Video caption",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "video",
     "fields": [
       {
