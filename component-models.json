@@ -239,8 +239,9 @@
         "name": "videoAsset",
         "label": "Select video",
         "multi": true,
-        "types": [
-          "dam:Asset"
+        "referenceTypes": [
+          "video/mp4",
+          "video/webm"
         ]
       },
       {
