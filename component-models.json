@@ -239,9 +239,7 @@
         "name": "videoAsset",
         "label": "Select video",
         "multi": false,
-        "types": [
-          "dam:Asset"
-        ]
+        "type": "video"
       },
       {
         "component": "text",
