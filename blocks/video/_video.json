@@ -21,7 +21,7 @@
       "id": "video",
       "fields": [
         {
-          "component": "aem-content",
+          "component": "reference",
           "valueType": "string",
           "name": "videoAsset",
           "label": "Select video",

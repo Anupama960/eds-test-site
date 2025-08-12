@@ -1,18 +1,20 @@
 export default function decorate(block) {
-  let videoPath = (block.dataset.videoasset || "").trim();
+  const videoPath = block.dataset.videoPath;
 
   if (!videoPath) {
-    block.innerHTML = "<p>No video</p>";
+    block.textContent = "No video";
     return;
   }
 
-  if (videoPath.startsWith('/content/dam')) {
-    videoPath = '${window.location.origin}${videoPath}';
-  }
+  const videoEl = document.createElement('video');
+  videoEl.setAttribute('controls', true);
+  videoEl.setAttribute('preload', 'metadata');
 
+  const source = document.createElement('source');
+  source.src = videoPath;
+  source.type = 'video/mp4';
 
-  block.innerHTML = <video controls width="640" height="360">
-        <source src="${videoPath}" type="video/mp4" />
-        doesn't support video tag.
-    </video>;
+  videoEl.appendChild(source);
+  block.innerHTML = '';
+  block.appendChild(videoEl);
 }
