@@ -1,8 +1,8 @@
 export default function decorate(block) {
-  const videoPath = block.dataset.videoPath;
+  const {videoPath} = block.dataset;
 
   if (!videoPath) {
-    block.textContent = "No video";
+    block.textContent = 'No video';
     return;
   }
 
