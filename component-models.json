@@ -257,7 +257,8 @@
         "multi": false,
         "referenceTypes": [
           "video/mp4",
-          "video/webm"
+          "video/webm",
+          "text/html"
         ]
       }
     ]

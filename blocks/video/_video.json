@@ -26,7 +26,7 @@
           "name": "videoAsset",
           "label": "Select video",
           "multi": false,
-          "referenceTypes": ["video/mp4", "video/webm"]
+          "referenceTypes": ["video/mp4", "video/webm", "text/html"]
           
         }
       ]

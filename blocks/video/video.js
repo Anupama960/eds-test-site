@@ -2,20 +2,34 @@ export default function decorate(block) {
   const videoPath = block.children[0]?.textContent?.trim();
 
   if (!videoPath) {
-    block.textContent = 'No video';
+    block.textContent = "No video";
     return;
   }
 
-  const videoEl = document.createElement('video');
-  videoEl.controls = true;
-  videoEl.preload = 'metadata';
+  const isVimeo = videoPath.includes("vimeo.com");
 
-  const source = document.createElement('source');
-  source.src = videoPath;
-  source.type = videoPath.endsWith('.webm') ? 'video/webm' : 'video/mp4';
+  block.innerHTML = "";
 
-  videoEl.appendChild(source);
+  if (isVimeo) {
+    const iframe = document.createElement("iframe");
+    iframe.src = videoPath.replace("vimeo.com", "player.vimeo.com/video");
+    iframe.width = "640";
+    iframe.height = "360";
+    iframe.allow = "autoplay; fullscreen; picture-in-picture";
+    iframe.allowFullscreen = true;
 
-  block.innerHTML = '';
-  block.appendChild(videoEl);
+    block.appendChild(iframe);
+  } else {
+    const videoEl = document.createElement("video");
+    videoEl.controls = true;
+    videoEl.preload = "metadata";
+
+    const source = document.createElement("source");
+    source.src = videoPath;
+    source.type = videoPath.endsWith(".webm") ? "video/webm" : "video/mp4";
+
+    videoEl.appendChild(source);
+
+    block.appendChild(videoEl);
+  }
 }
