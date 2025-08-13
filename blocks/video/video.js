@@ -22,11 +22,11 @@ export default function decorate(block) {
   } else {
     const videoEl = document.createElement('video');
     videoEl.controls = true;
-    videoEl.preload = "metadata";
+    videoEl.preload = 'metadata';
 
-    const source = document.createElement("source");
+    const source = document.createElement('source');
     source.src = videoPath;
-    source.type = videoPath.endsWith(".webm") ? "video/webm" : "video/mp4";
+    source.type = videoPath.endsWith('.webm') ? 'video/webm' : 'video/mp4';
 
     videoEl.appendChild(source);
 
