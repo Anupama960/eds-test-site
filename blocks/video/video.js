@@ -1,15 +1,14 @@
 export default function decorate(block) {
   const videoPath = block.children[0]?.textContent?.trim();
-  const caption = block.children[1]?.textContent?.trim();
 
   if (!videoPath) {
     block.textContent = 'No video';
     return;
   }
 
-  const videoEl = document.createElement('video');
-  videoEl.controls = true;
-  videoEl.preload = 'metadata';
+  const videoEl = document.createElement('video'); //creates video html element
+  videoEl.controls = true;              //shows the controls
+  videoEl.preload = 'metadata';         // loads only metadata before users clicks play
 
   const source = document.createElement('source');
   source.src = videoPath;
@@ -19,10 +18,5 @@ export default function decorate(block) {
 
   block.innerHTML = '';
   block.appendChild(videoEl);
-
-  if (caption) {
-    const captionEl = document.createElement('p');
-    captionEl.textContent = caption;
-    block.appendChild(captionEl);
-  }
+ 
 }
