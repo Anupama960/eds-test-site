@@ -1,7 +1,6 @@
 export default function decorate(block) {
   [...block.children].forEach((row) => {
     const videoPath = block.children[0]?.textContent?.trim();
-    const caption = block.children[1]?.textContent?.trim();
 
     if (!videoPath) {
       block.textContent = 'No video';
@@ -21,10 +20,5 @@ export default function decorate(block) {
     row.innerHTML = '';
     row.appendChild(videoEl);
 
-    if (caption) {
-      const captionEl = document.createElement('p');
-      captionEl.textContent = caption;
-      row.appendChild(captionEl);
-    }
   });
 }

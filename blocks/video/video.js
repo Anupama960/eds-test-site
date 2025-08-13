@@ -6,9 +6,9 @@ export default function decorate(block) {
     return;
   }
 
-  const videoEl = document.createElement('video'); //creates video html element
-  videoEl.controls = true;              //shows the controls
-  videoEl.preload = 'metadata';         // loads only metadata before users clicks play
+  const videoEl = document.createElement('video');
+  videoEl.controls = true;
+  videoEl.preload = 'metadata';
 
   const source = document.createElement('source');
   source.src = videoPath;
@@ -18,5 +18,4 @@ export default function decorate(block) {
 
   block.innerHTML = '';
   block.appendChild(videoEl);
- 
 }
