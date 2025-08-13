@@ -6,9 +6,9 @@ export default function decorate(block) {
     return;
   }
 
-  const isVimeo = videoPath.includes('vimeo.com');
-
   block.innerHTML = '';
+
+  const isVimeo = videoPath.includes('vimeo.com');
 
   if (isVimeo) {
     const iframe = document.createElement('iframe');

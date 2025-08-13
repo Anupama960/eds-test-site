@@ -26,8 +26,15 @@
           "name": "videoAsset",
           "label": "Select video",
           "multi": false,
-          "referenceTypes": ["video/mp4", "video/webm", "text/html"]
+          "referenceTypes": ["video/mp4", "video/webm"]
           
+        },
+        {         
+          "component": "text",
+          "valueType": "string",
+          "name": "externalVideoUrl",
+          "label": "Vimeo Video URL",
+          "multi": false
         }
       ]
     }

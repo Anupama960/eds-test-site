@@ -257,9 +257,15 @@
         "multi": false,
         "referenceTypes": [
           "video/mp4",
-          "video/webm",
-          "text/html"
+          "video/webm"
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "externalVideoUrl",
+        "label": "Vimeo Video URL",
+        "multi": false
       }
     ]
   }
