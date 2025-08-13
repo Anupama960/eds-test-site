@@ -19,6 +19,5 @@ export default function decorate(block) {
 
     row.innerHTML = '';
     row.appendChild(videoEl);
-
   });
 }
