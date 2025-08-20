@@ -1,28 +1,20 @@
 export default function decorate(block) {
-  const videoURL = block.children[0]?.textContent?.trim();
+  const videoUrl = block.textContent.trim(); // Assume block has Vimeo URL
+  block.textContent = "";
 
-  if (videoURL) {
-    // Create container div for Vimeo player
-    const htmlVideoElement = document.createElement('div');
-    htmlVideoElement.setAttribute('data-vimeo-url', videoURL);
-    htmlVideoElement.setAttribute('id', 'video-1');
-    block.append(htmlVideoElement);
+  const iframe = document.createElement("iframe");
+  iframe.src = videoUrl.replace("vimeo.com/", "player.vimeo.com/video/");
+  iframe.width = "640";
+  iframe.height = "360";
+  iframe.allow = "autoplay; fullscreen; picture-in-picture";
+  iframe.allowFullscreen = true;
 
-    // Load Vimeo Player once DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      const videoContainer = document.querySelector('#video-1');
-      if (videoContainer) {
-        // Initialize Vimeo Player
-        const player = new Vimeo.Player(videoContainer);
+  block.appendChild(iframe);
 
-        player.on('play', () => {});
+  // Initialize Vimeo player
+  const player = new Vimeo.Player(iframe);
 
-        player.on('pause', () => {});
-
-        player.on('ended', () => {});
-      }
-    });
-  } else {
-    block.textContent = 'No Vimeo URL provided';
-  }
+  player.on("play", function () {
+    console.log("Video is playing");
+  });
 }
