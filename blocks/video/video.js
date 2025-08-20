@@ -1,35 +1,34 @@
 export default function decorate(block) {
-  const videoPath = block.children[0]?.textContent?.trim();
-
-  if (!videoPath) {
-    block.textContent = 'No video';
-    return;
-  }
-
-  block.innerHTML = '';
-
-  const isVimeo = videoPath.includes('vimeo.com');
-
-  if (isVimeo) {
-    const iframe = document.createElement('iframe');
-    iframe.src = videoPath.replace('vimeo.com', 'player.vimeo.com/video');
-    iframe.width = '640';
-    iframe.height = '360';
-    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-    iframe.allowFullscreen = true;
-
-    block.appendChild(iframe);
+  const videoURL = block.children[0]?.textContent?.trim();
+ 
+  if (videoURL) {
+    // Create container div for Vimeo player
+    const htmlVideoElement = document.createElement('div');
+    htmlVideoElement.setAttribute('data-vimeo-url', videoURL);
+    htmlVideoElement.setAttribute('id', 'video-1');
+    block.append(htmlVideoElement);
+ 
+    // Load Vimeo Player once DOM is ready
+    document.addEventListener("DOMContentLoaded", () => {
+      const videoContainer = document.querySelector("#video-1");
+      if (videoContainer) {
+        // Initialize Vimeo Player
+        const player = new Vimeo.Player(videoContainer);
+ 
+        player.on('play', () => {
+          console.log("Vimeo video is playing");
+        });
+ 
+        player.on('pause', () => {
+          console.log("Vimeo video is paused ⏸️");
+        });
+ 
+        player.on('ended', () => {
+          console.log("Vimeo video ended");
+        });
+      }
+    });
   } else {
-    const videoEl = document.createElement('video');
-    videoEl.controls = true;
-    videoEl.preload = 'metadata';
-
-    const source = document.createElement('source');
-    source.src = videoPath;
-    source.type = videoPath.endsWith('.webm') ? 'video/webm' : 'video/mp4';
-
-    videoEl.appendChild(source);
-
-    block.appendChild(videoEl);
+    block.textContent = "No Vimeo URL provided";
   }
 }

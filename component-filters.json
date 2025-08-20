@@ -41,5 +41,9 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "video",
+    "components": []
   }
 ]
