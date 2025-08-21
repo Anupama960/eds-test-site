@@ -6,6 +6,7 @@ export default function decorate(block) {
   iframe.src = videoUrl.replace('vimeo.com/', 'player.vimeo.com/video/');
   iframe.width = '640';
   iframe.height = '360';
+
   iframe.allow = 'autoplay; fullscreen; picture-in-picture';
   iframe.allowFullscreen = true;
 
@@ -13,6 +14,7 @@ export default function decorate(block) {
 
   // Initialize Vimeo player
   const player = new Vimeo.Player(iframe);
-
-  player.on('play', function () {});
+  player.on('play', () => {
+    console.log('Played the video');
+  });
 }
