@@ -18,7 +18,8 @@
       "fragment",
       "embed-adaptive-form",
       "video",
-      "video-gallery"
+      "video-gallery",
+      "videoplayer"
     ]
   },
   {
@@ -44,6 +45,10 @@
   },
   {
     "id": "video",
+    "components": []
+  },
+  {
+    "id": "videoplayer",
     "components": []
   }
 ]

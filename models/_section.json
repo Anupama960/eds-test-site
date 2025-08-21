@@ -53,7 +53,8 @@
         "fragment",
         "embed-adaptive-form",
         "video",
-        "video-gallery"
+        "video-gallery",
+        "videoplayer"
       ]
     }
   ]
