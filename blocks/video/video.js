@@ -1,29 +1,24 @@
 export default function decorate(block) {
   const videoURL = block.children[0]?.textContent?.trim();
+  if (videoURL) {
+    const htmlVideoElement = document.createElement('div');
+    htmlVideoElement.setAttribute('data-vimeo-url', videoURL);
+    // htmlVideoElement.setAttribute('data-vimeo-width', '457');
+    // htmlVideoElement.setAttribute('data-vimeo-height', '259px');
+    htmlVideoElement.setAttribute('id', 'video-1');
 
-  if (!videoURL) {
-    block.textContent = "No video URL provided";
-    return;
-  }
+    block.append(htmlVideoElement);
 
-  // Clear block content
-  block.innerHTML = "";
+    // eslint-disable-next-line no-restricted-globals
+    addEventListener('DOMContentLoaded', () => {
+      const videoContainer = document.querySelector('#video-1');
+      // eslint-disable-next-line no-undef
+      const player = new Vimeo.Player(videoContainer);
 
-  // Create video container
-  const container = document.createElement('div');
-  container.id = 'video-1';
-  block.appendChild(container);
-
-  // Dynamically load Vimeo API
-  const script = document.createElement('script');
-  script.src = 'https://player.vimeo.com/api/player.js';
-  script.onload = () => {
-    const player = new Vimeo.Player(container, {
-      url: videoURL,
-      width: 640,
+      player.on('play', () => {
+        // eslint-disable-next-line no-console
+        console.log('Played the video');
+      });
     });
-
-    player.on('play', () => {});
-  };
-  document.head.appendChild(script);
+  }
 }
