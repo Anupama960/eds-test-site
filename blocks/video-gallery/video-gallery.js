@@ -58,7 +58,7 @@ function getVideoElement(source, autoplay, background) {
     video.removeAttribute('controls');
     video.addEventListener('canplay', () => {
       video.muted = true;
-      if (autoplay) video.play();
+      if (autoplay && !prefersReducedMotion.matches) video.play();
     });
   }
 
@@ -98,23 +98,22 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
       block.dataset.embedLoaded = true;
     });
   }
-}
+};
   export default async function decorate(block) {
-  const mainContainer = document.createElement("div");
+  const mainContainer = document.createElement('div');
   mainContainer.className = "gallery-main-video";
  
-  const thumbContainer = document.createElement("div");
-  thumbContainer.className = "gallery-thumbnails";
+  const thumbContainer = document.createElement('div');
+  thumbContainer.className = 'gallery-thumbnails';
  
-  const links = Array.from(block.querySelectorAll("a"));
+  const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
  
-  // Load first video
+  const autoplayFirst = !prefersReducedMotion.matches;
   loadVideoEmbed(mainContainer, links[0].href, false, false);
  
-  // Create thumbnails
   links.forEach((link, index) => {
-    const thumb = document.createElement("div");
+    const thumb = document.createElement('div');
     thumb.className = "gallery-thumb";
     thumb.textContent = link.textContent || `Video ${index + 1}`;
     thumb.addEventListener("click", () => {
@@ -127,4 +126,3 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
   block.textContent = "";
   block.append(mainContainer, thumbContainer);
 }
-
