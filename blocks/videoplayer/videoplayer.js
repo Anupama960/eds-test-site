@@ -22,7 +22,7 @@ function embedYoutube(url, autoplay, background) {
   }
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
-  if (url.origin.includes('youtube')) {
+  if (url.origin.includes('youtu.be')) {
     [, vid] = url.pathname.split('/');
   }
 
@@ -82,7 +82,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
   }
   const url = new URL(link);
 
-  const isYoutube = link.includes('youtube');
+  const isYoutube = link.includes('youtube') || link.includes('youtu.be');
   const isVimeo = link.includes('vimeo');
 
   if (isYoutube) {
@@ -107,6 +107,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 };
 
 export default async function decorate(block) {
+  block.classList.add('video');
   const placeholder = block.querySelector('picture');
   const link = block.querySelector('a').href;
   block.textContent = '';
