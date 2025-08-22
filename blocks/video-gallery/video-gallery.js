@@ -99,25 +99,25 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
     });
   }
 };
-  export default async function decorate(block) {
+export default async function decorate(block) {
   const mainContainer = document.createElement('div');
   mainContainer.className = "gallery-main-video";
- 
+
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
- 
+
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
- 
+
   const autoplayFirst = !prefersReducedMotion.matches;
   loadVideoEmbed(mainContainer, links[0].href, false, false);
- 
+
   links.forEach((link, index) => {
     const thumb = document.createElement('div');
-    thumb.className = "gallery-thumb";
+    thumb.className = 'gallery-thumb';
     thumb.textContent = link.textContent || `Video ${index + 1}`;
-    thumb.addEventListener("click", () => {
-      mainContainer.textContent = "";
+    thumb.addEventListener('click', () => {
+      mainContainer.textContent = '';
       loadVideoEmbed(mainContainer, link.href, true, false);
     });
     thumbContainer.append(thumb);
