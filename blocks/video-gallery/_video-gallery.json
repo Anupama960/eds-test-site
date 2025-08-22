@@ -22,16 +22,53 @@
       "id": "video-gallery",
       "fields": [
         {
-          "component": "reference",
-          "valueType": "string",
-          "name": "title",
-          "label": "Select video"
-          
+          "component": "object",
+          "name": "videos",
+          "label": "Videos",
+          "multi": true,
+          "fields": [
+            {
+              "component": "select",
+              "name": "source",
+              "label": "Video Source",
+              "valueType": "string",
+              "options": [
+                { "name": "YouTube", "value": "youtube" },
+                { "name": "Vimeo", "value": "vimeo" },
+                { "name": "AEM DAM", "value": "dam" }
+              ]
+            },
+            {
+              "component": "aem-content",
+              "name": "url",
+              "label": "Video URL",
+              "valueType": "string"
+            },
+            {
+              "component": "text",
+              "name": "title",
+              "label": "Video Title",
+              "valueType": "string"
+            }
+          ]
         },
         {
-          "component": "array",
-          "name": "videos",
-          "label": "Select video"
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Auto Play",
+              "children": [
+                {
+                  "name": "AutoPlay",
+                  "value": "autoplay"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
