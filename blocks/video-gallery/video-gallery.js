@@ -70,14 +70,14 @@ function getVideoElement(source, autoplay, background) {
   return video;
 }
 
-const loadVideoEmbed = (block, link, autoplay, background) => {
+const loadVideoEmbed = (block, links, autoplay, background) => {
   if (block.dataset.embedLoaded === 'true') {
     return;
   }
-  const url = new URL(link);
+  const url = new URL(links);
 
-  const isYoutube = link.includes('youtube') || link.includes('youtu.be');
-  const isVimeo = link.includes('vimeo');
+  const isYoutube = links.includes('youtube') || links.includes('youtu.be');
+  const isVimeo = links.includes('vimeo');
 
   if (isYoutube) {
     const embedWrapper = embedYoutube(url, autoplay, background);
@@ -92,7 +92,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
       block.dataset.embedLoaded = true;
     });
   } else {
-    const videoEl = getVideoElement(link, autoplay, background);
+    const videoEl = getVideoElement(links, autoplay, background);
     block.append(videoEl);
     videoEl.addEventListener('canplay', () => {
       block.dataset.embedLoaded = true;
@@ -120,7 +120,7 @@ export default function decorate(block) {
   loadVideoEmbed(mainVideoContainer, links[0], false, false);
 
   // Create thumbnails for the rest
-  links.forEach((link, index) => {
+  links.forEach((links, index) => {
     const thumb = document.createElement('button');
     thumb.className = 'gallery-thumb';
     thumb.textContent = `Video ${index + 1}`;
@@ -128,7 +128,7 @@ export default function decorate(block) {
     thumb.addEventListener('click', () => {
       // Clear main container and load selected video
       mainVideoContainer.innerHTML = '';
-      loadVideoEmbed(mainVideoContainer, link, false, false);
+      loadVideoEmbed(mainVideoContainer, links, false, false);
     });
 
     thumbContainer.append(thumb);
@@ -147,18 +147,18 @@ export default function decorate(block) {
       );
       wrapper.addEventListener('click', () => {
         wrapper.remove();
-        loadVideoEmbed(block, link, true, false);
+        loadVideoEmbed(block, links, true, false);
       });
-  }
+    }
     block.append(wrapper);
   }
 
-   if (!placeholder || autoplay) {
+  if (!placeholder || autoplay) {
     const observer = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) {
         observer.disconnect();
         const playOnLoad = autoplay && !prefersReducedMotion.matches;
-        loadVideoEmbed(block, link, playOnLoad, autoplay);
+        loadVideoEmbed(block, links, playOnLoad, autoplay);
       }
     });
     observer.observe(block);
