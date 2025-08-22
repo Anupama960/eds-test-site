@@ -236,13 +236,13 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "videoAsset",
-        "label": "Select video",
-        "multi": true,
-        "referenceTypes": [
-          "video/mp4",
-          "video/webm"
-        ]
+        "name": "title",
+        "label": "Select video"
+      },
+      {
+        "component": "array",
+        "name": "videos",
+        "label": "Select video"
       }
     ]
   },
@@ -262,9 +262,9 @@
     "id": "videoplayer",
     "fields": [
       {
-        "component": "aem-content",
+        "component": "text",
         "valueType": "string",
-        "name": "uri",
+        "name": "url",
         "label": "Video"
       },
       {

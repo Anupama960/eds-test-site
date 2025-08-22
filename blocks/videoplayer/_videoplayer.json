@@ -22,9 +22,9 @@
       "id": "videoplayer",
       "fields": [
         {
-          "component": "aem-content",
+          "component": "text",
           "valueType": "string",
-          "name": "uri",
+          "name": "url",
           "label": "Video"
         },
         {
@@ -66,6 +66,6 @@
     {
       "id": "videoplayer",
       "components": []
-    }
+    }    
   ]
 }

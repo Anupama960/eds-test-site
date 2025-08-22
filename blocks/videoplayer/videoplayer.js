@@ -8,7 +8,7 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 
 function embedYoutube(url, autoplay, background) {
   const usp = new URLSearchParams(url.search);
-  let suffix = '';
+  let suffix = ''; 
   if (background || autoplay) {
     const suffixParams = {
       autoplay: autoplay ? '1' : '0',
@@ -16,13 +16,13 @@ function embedYoutube(url, autoplay, background) {
       controls: background ? '0' : '1',
       disablekb: background ? '1' : '0',
       loop: background ? '1' : '0',
-      playsinline: background ? '1' : '0',
+      playsinline: background ? '1' : '0',    
     };
     suffix = `&${Object.entries(suffixParams).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')}`;
   }
   let vid = usp.get('v') ? encodeURIComponent(usp.get('v')) : '';
   const embed = url.pathname;
-  if (url.origin.includes('youtu.be')) {
+  if (url.origin.includes('youtube')) {
     [, vid] = url.pathname.split('/');
   }
 
@@ -82,7 +82,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
   }
   const url = new URL(link);
 
-  const isYoutube = link.includes('youtube') || link.includes('youtu.be');
+  const isYoutube = link.includes('youtube');
   const isVimeo = link.includes('vimeo');
 
   if (isYoutube) {
