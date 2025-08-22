@@ -298,20 +298,6 @@
             ]
           }
         ]
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "placeholder_image",
-        "label": "Placeholder Image",
-        "multi": true
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "placeholder_imageAlt",
-        "value": "",
-        "label": "Placeholder Image Alt Text"
       }
     ]
   }
