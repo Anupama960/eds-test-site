@@ -319,7 +319,7 @@
             "value": "url"
           },
           {
-            "name": "DAM Asset",
+            "name": "DAM Video",
             "value": "dam"
           }
         ]
@@ -327,7 +327,7 @@
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "dam video",
+        "name": "DAM Video",
         "label": "Select dam video",
         "condition": {
           "field": "source_type",
@@ -337,7 +337,7 @@
       {
         "component": "text",
         "valueType": "string",
-        "name": "external url",
+        "name": "External URL",
         "label": "video url",
         "condition": {
           "field": "source_type",
