@@ -120,7 +120,7 @@ export default function decorate(block) {
   loadVideoEmbed(mainVideoContainer, links[0], false, false);
 
   // Create thumbnails for the rest
-  links.forEach((links, index) => {
+  links.forEach((videoLink, index) => {
     const thumb = document.createElement('button');
     thumb.className = 'gallery-thumb';
     thumb.textContent = `Video ${index + 1}`;
