@@ -101,6 +101,10 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 };
 
 export default function decorate(block) {
+  const placeholder = block.querySelector('picture');
+  block.textContent = '';
+  block.dataset.embedLoaded = false;
+
   const links = [...block.querySelectorAll('a')];
   if (!links.length) return;
 
@@ -145,7 +149,7 @@ export default function decorate(block) {
         wrapper.remove();
         loadVideoEmbed(block, link, true, false);
       });
-    }
+  }
     block.append(wrapper);
   }
 
