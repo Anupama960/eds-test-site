@@ -103,7 +103,7 @@ const loadVideoEmbed = (block, link, autoplay, background) => {
 export default function decorate(block) {
   const links = [...block.querySelectorAll('a')];
   if (!links.length) return;
- 
+
   const mainVideoContainer = document.createElement('div');
   mainVideoContainer.className = 'gallery-main-video';
   block.append(mainVideoContainer);
@@ -111,22 +111,33 @@ export default function decorate(block) {
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
   block.append(thumbContainer);
- 
+
   // Load first video as main video
   loadVideoEmbed(mainVideoContainer, links[0], false, false);
- 
+
   // Create thumbnails for the rest
   links.forEach((link, index) => {
     const thumb = document.createElement('button');
     thumb.className = 'gallery-thumb';
     thumb.textContent = `Video ${index + 1}`;
- 
+
     thumb.addEventListener('click', () => {
       // Clear main container and load selected video
       mainVideoContainer.innerHTML = '';
       loadVideoEmbed(mainVideoContainer, link, false, false);
     });
- 
+
     thumbContainer.append(thumb);
   });
+
+   if (!placeholder || autoplay) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        observer.disconnect();
+        const playOnLoad = autoplay && !prefersReducedMotion.matches;
+        loadVideoEmbed(block, link, playOnLoad, autoplay);
+      }
+    });
+    observer.observe(block);
+  }
 }
