@@ -44,10 +44,6 @@
     ]
   },
   {
-    "id": "video-gallery",
-    "components": []
-  },
-  {
     "id": "video",
     "components": []
   },
