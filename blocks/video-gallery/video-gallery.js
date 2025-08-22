@@ -129,6 +129,25 @@ export default function decorate(block) {
 
     thumbContainer.append(thumb);
   });
+  const autoplay = block.classList.contains('autoplay');
+  if (placeholder) {
+    block.classList.add('placeholder');
+    const wrapper = document.createElement('div');
+    wrapper.className = 'video-placeholder';
+    wrapper.append(placeholder);
+
+    if (!autoplay) {
+      wrapper.insertAdjacentHTML(
+        'beforeend',
+        '<div class="video-placeholder-play"><button type="button" title="Play"></button></div>',
+      );
+      wrapper.addEventListener('click', () => {
+        wrapper.remove();
+        loadVideoEmbed(block, link, true, false);
+      });
+    }
+    block.append(wrapper);
+  }
 
    if (!placeholder || autoplay) {
     const observer = new IntersectionObserver((entries) => {
