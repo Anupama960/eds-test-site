@@ -118,7 +118,7 @@ export default async function decorate(block) {
     thumb.textContent = link.textContent || `Video ${index + 1}`;
     thumb.addEventListener('click', () => {
       mainContainer.textContent = '';
-    //   autoplayClick = !prefersReducedMotion.matches;
+      //   autoplayClick = !prefersReducedMotion.matches;
       loadVideoEmbed(mainContainer, link.href, true, false);
     });
     thumbContainer.append(thumb);
