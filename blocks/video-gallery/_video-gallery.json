@@ -22,35 +22,34 @@
       "id": "video-gallery",
       "fields": [
         {
-          "component": "object",
-          "name": "videos",
-          "label": "Videos",
-          "multi": true,
-          "fields": [
-            {
-              "component": "select",
-              "name": "source",
-              "label": "Video Source",
-              "valueType": "string",
-              "options": [
-                { "name": "YouTube", "value": "youtube" },
-                { "name": "Vimeo", "value": "vimeo" },
-                { "name": "AEM DAM", "value": "dam" }
-              ]
-            },
-            {
-              "component": "aem-content",
-              "name": "url",
-              "label": "Video URL",
-              "valueType": "string"
-            },
-            {
-              "component": "text",
-              "name": "title",
-              "label": "Video Title",
-              "valueType": "string"
-            }
+          "component": "radio",
+          "valueType": "string",
+          "name": "source_type",
+          "label": "Video source",
+          "options": [
+            {"name": "External_URL", "value": "url"},
+            {"name": "DAM_Video", "value": "dam"}
           ]
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "DAM_Video",
+          "label": "Select dam video",
+          "condition": {
+            "field": "source_type",
+            "value": "dam"
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "External_URL",
+          "label": "video url",
+          "condition": {
+            "field": "source_type",
+            "value": "url"
+          }
         },
         {
           "component": "multiselect",
@@ -77,6 +76,6 @@
     {
       "id": "video-gallery",
       "components": []
-    }
+    }    
   ]
 }
