@@ -72,7 +72,7 @@ export default function decorate(block) {
   // Main video wrapper
   const mainVideoWrapper = document.createElement('div');
   mainVideoWrapper.className = 'main-video';
- 
+
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
   mainVideo.src = mainSrc;
