@@ -1,45 +1,38 @@
 export default function decorate(block) {
-  // Create containers
+  const links = [...block.querySelectorAll('a')];
+  if (!links.length) return;
+
+  // Clear block
+  block.innerHTML = '';
+
+  // Containers
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
+
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
 
   block.append(mainContainer, thumbContainer);
 
-  // Collect video links
-  const links = Array.from(block.querySelectorAll('a'));
-  if (!links.length) return;
+  // Main video (first one)
+  const mainVideo = document.createElement('video');
+  mainVideo.controls = true;
+  mainVideo.src = links[0].href;
+  mainContainer.append(mainVideo);
 
-  // Function to create video iframe
-  function createVideo(url) {
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.width = '560';
-    iframe.height = '315';
-    iframe.frameBorder = '0';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen = true;
-    return iframe;
-  }
-
-  // Load first video in main container
-  const firstLink = links[0];
-  const firstVideo = createVideo(firstLink.href);
-  mainContainer.append(firstVideo);
-
-  // Build thumbnails
+  // Thumbnails for all videos
   links.forEach((link, index) => {
-    const thumb = document.createElement('button');
-    thumb.className = 'gallery-thumb';
-    thumb.textContent = `Video ${index + 1}`;
-
-    thumb.addEventListener('click', () => {
-      mainContainer.innerHTML = '';
-      const video = createVideo(link.href);
-      mainContainer.append(video);
-    });
-
+    const thumb = document.createElement('video');
+    thumb.src = link.href;
+    thumb.muted = true;
+    thumb.className = 'thumbnail';
     thumbContainer.append(thumb);
+
+    // Switch video on click
+    thumb.addEventListener('click', () => {
+      mainVideo.src = link.href;
+      mainVideo.play();
+    });
   });
 }
+ 
