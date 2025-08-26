@@ -1,0 +1,36 @@
+.video-gallery {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+ 
+.gallery-main-video {
+  flex: 2;
+  max-width: 70%;
+}
+ 
+.gallery-main-video video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+ 
+.gallery-thumbnails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+ 
+.gallery-thumbnails video {
+  width: 100%;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+ 
+.gallery-thumbnails video:hover {
+  transform: scale(1.05);
+}
