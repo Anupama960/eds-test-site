@@ -53,7 +53,7 @@ export default function decorate(block) {
     // remove links from DOM after processing
   });
 
-  console.log('Playlist videos:', playlistWrapper.children.length);
+  //console.log('Playlist videos:', playlistWrapper.children.length);
 
   container.append(mainVideoWrapper, playlistWrapper);
 
