@@ -1,31 +1,29 @@
-function decorate(block) {
-  // Get all videos from DAM references
+export default function decorate(block) {
   const videoElements = Array.from(block.querySelectorAll('a'));
-  if (!videoElements.length) return;
+  if (videoElements.length === 0) return;
 
-  const videos = videoElements.map(el => el.href);
+  // Use array destructuring
+  const videos = videoElements.map((el) => el.href);
+  const [mainSrc, ...playlistSrcs] = videos;
 
-  // Create main container
+  // Main container
   const container = document.createElement('div');
   container.className = 'videoplaylist';
 
-  // Create main video wrapper
+  // Main video
   const mainVideoWrapper = document.createElement('div');
   mainVideoWrapper.className = 'main-video';
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = videos[0];
+  mainVideo.src = mainSrc;
   mainVideoWrapper.appendChild(mainVideo);
 
-  // Create playlist wrapper (right side)
+  // Playlist wrapper
   const playlistWrapper = document.createElement('div');
   playlistWrapper.className = 'playlist';
 
-  // Add thumbnails for rest of the videos
-  videos.forEach((src, index) => {
-    if (index === 0) return; // skip main video
-
+  playlistSrcs.forEach((src) => {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = 'playlist-item';
 
@@ -36,11 +34,10 @@ function decorate(block) {
     thumb.playsInline = true;
     thumb.preload = 'metadata';
 
-    // Click event to switch main video
     thumb.addEventListener('click', () => {
       mainVideo.src = src;
       mainVideo.play();
-      playlistWrapper.querySelectorAll('.playlist-item').forEach(item => {
+      playlistWrapper.querySelectorAll('.playlist-item').forEach((item) => {
         item.classList.remove('active');
       });
       thumbWrapper.classList.add('active');
