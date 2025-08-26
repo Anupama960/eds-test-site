@@ -25,6 +25,16 @@ export default function decorate(block) {
     thumb.className = 'playlist-video';
     thumb.src = link.href;
     thumb.muted = true;
+    thumb.playsInline = true;
+    thumb.preload = 'metadata';
+
+
+    thumb.addEventListener('error', () => {
+      const fallback = document.createElement('div');
+      fallback.textContent = 'Video unavailable';
+      fallback.className = 'video-fallback';
+      thumbWrapper.replaceChild(fallback, thumb);
+    });
 
     // Change main video on click
     thumb.addEventListener('click', () => {
@@ -32,10 +42,13 @@ export default function decorate(block) {
       mainVideo.play();
     });
 
-    playlistWrapper.append(thumb);
-
+    thumbWrapper.appendChild(thumb)
+    playlistWrapper.appendChild(thumb);
     // remove links from DOM after processing
   });
+
+    console.log('Playlist videos:', playlistWrapper.children.length);
+
 
   container.append(mainVideoWrapper, playlistWrapper);
 
