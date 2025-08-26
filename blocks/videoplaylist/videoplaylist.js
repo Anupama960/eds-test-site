@@ -1,6 +1,6 @@
 export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
-  if (!links.length) return;
+  if (links.length === 0) return;
 
   // Create layout containers
   const layout = document.createElement('div');
@@ -22,31 +22,28 @@ export default function decorate(block) {
     const video = document.createElement('video');
     video.src = url;
     video.controls = true;
+    video.playsInline = true;
+    video.muted = !isMain;
     video.width = isMain ? 640 : 160;
     video.height = isMain ? 360 : 90;
-    video.muted = !isMain;
-    video.playsInline = true;
     if (autoplay && isMain) {
       video.autoplay = true;
     }
     return video;
   }
 
-  // Render the first video in the main area
+  // Render main video
   const firstVideo = createVideo(links[0].href, true);
   main.append(firstVideo);
 
-  // Render the rest as thumbnails
-  links.forEach((link, index) => {
-    if (index === 0) return;
-
+  // Render thumbnails
+  links.slice(1).forEach((link) => {
     const thumb = createVideo(link.href);
     thumb.addEventListener('click', () => {
       main.innerHTML = '';
       const newMain = createVideo(link.href, true);
       main.append(newMain);
     });
-
     thumbs.append(thumb);
   });
 }
