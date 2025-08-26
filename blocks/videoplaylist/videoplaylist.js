@@ -20,7 +20,6 @@ export default function decorate(block) {
   playlistWrapper.className = 'playlist';
 
   videos.forEach((link, index) => {
-
     if (index === 0) return;
 
     const thumbWrapper = document.createElement('div');
@@ -45,7 +44,7 @@ export default function decorate(block) {
       mainVideo.src = link.href;
       mainVideo.play();
 
-      playlistWrapper.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
+      playlistWrapper.querySelectorAll('.playlist-item').forEach((item) => item.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
