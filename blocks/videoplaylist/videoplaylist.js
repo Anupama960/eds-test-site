@@ -1,11 +1,14 @@
 export default function decorate(block) {
-  // Collect all video URLs first
+  // Collect all video URLs from anchor tags inside block
   const links = block.querySelectorAll('a');
-  const videoUrls = Array.from(links).map(link => link.href);
+  const videoUrls = Array.from(links).map((link) => link.href);
 
   if (!videoUrls.length) return;
 
-  // Clear block after collecting URLs
+  // Destructure first and remaining videos
+  const [firstVideo, ...otherVideos] = videoUrls;
+
+  // Clear the block content
   block.textContent = '';
 
   // Main container
@@ -18,20 +21,23 @@ export default function decorate(block) {
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = videoUrls[0]; // First video as default
+  mainVideo.src = firstVideo;
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
-  // Thumbnails
+  // Thumbnails area
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
   const thumbsContainer = document.createElement('div');
   thumbsContainer.className = 'video-thumbs';
 
-  videoUrls.forEach((url, index) => {
+  // Add the first video as the first thumbnail
+  const allVideos = [firstVideo, ...otherVideos];
+
+  allVideos.forEach((url, index) => {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
     thumbWrapper.dataset.videoNum = index;
@@ -46,10 +52,9 @@ export default function decorate(block) {
     // On click, update main video
     thumbWrapper.addEventListener('click', () => {
       mainVideo.src = url;
-mainVideo.play();
+      mainVideo.play();
 
-      // Update active state
-      thumbsContainer.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
+      thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
