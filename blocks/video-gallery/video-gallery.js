@@ -1,5 +1,5 @@
 export default function decorate(block) {
-  const videoLinks = Array.from(block.querySelectorAll('a')).map(a => a.href);
+  const videoLinks = Array.from(block.querySelectorAll('a')).map((a) => a.href);
 
   if (!videoLinks.length) return;
 
@@ -17,17 +17,9 @@ export default function decorate(block) {
 
   // Utility: Create video or iframe
   const createVideoElement = (url, isThumbnail = false) => {
-if (url.includes('youtube') || url.includes('youtu.be')) {
+    if (url.includes('youtube') || url.includes('youtu.be')) {
       const iframe = document.createElement('iframe');
-iframe.src = `https://www.youtube.com/embed/${extractYouTubeId(url)}?rel=0`;
-      iframe.frameBorder = '0';
-      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-      iframe.loading = 'lazy';
-      iframe.className = isThumbnail ? 'thumbnail' : 'main-video-frame';
-      return iframe;
-    } else if (url.includes('vimeo')) {
-      const iframe = document.createElement('iframe');
-iframe.src = `https://player.vimeo.com/video/${extractVimeoId(url)}`;
+      iframe.src = `https://www.youtube.com/embed/${extractYouTubeId(url)}?rel=0`;
       iframe.frameBorder = '0';
       iframe.allow = 'autoplay; fullscreen; picture-in-picture';
       iframe.loading = 'lazy';
