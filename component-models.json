@@ -318,9 +318,10 @@
     "id": "videoplaylist",
     "fields": [
       {
-        "component": "multifield",
+        "component": "reference",
         "name": "videos",
         "label": "Videos",
+        "multi": "true",
         "fields": [
           {
             "component": "radio",
