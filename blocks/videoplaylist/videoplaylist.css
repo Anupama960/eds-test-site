@@ -2,17 +2,17 @@
   display: flex;
   gap: 16px;
 }
- 
+
 .main-video {
   flex: 3;
 }
- 
+
 .main-video video {
   width: 100%;
   height: auto;
   border-radius: 8px;
 }
- 
+
 .playlist {
   flex: 1;
   display: flex;
@@ -21,7 +21,7 @@
   max-height: 500px; /* scroll if many thumbnails */
   overflow-y: auto;
 }
- 
+
 .playlist-item {
   cursor: pointer;
   border: 2px solid transparent;
