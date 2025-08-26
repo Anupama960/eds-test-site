@@ -10,6 +10,7 @@ export default function decorate(block) {
   // Main video section
   const mainVideoWrapper = document.createElement('div');
   mainVideoWrapper.className = 'main-video';
+
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
   mainVideo.src = videos[0].href; // first video
@@ -43,7 +44,6 @@ export default function decorate(block) {
     thumb.addEventListener('click', () => {
       mainVideo.src = link.href;
       mainVideo.play();
-
       playlistWrapper.querySelectorAll('.playlist-item').forEach((item) => item.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
@@ -56,7 +56,6 @@ export default function decorate(block) {
   // console.log('Playlist videos:', playlistWrapper.children.length);
 
   container.append(mainVideoWrapper, playlistWrapper);
-
   block.textContent = '';
   block.append(container);
 }
