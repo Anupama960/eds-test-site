@@ -1,79 +1,53 @@
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+export default function decorate(block) {
+  // Create containers
+  const mainContainer = document.createElement('div');
+  mainContainer.className = 'gallery-main-video';
 
-function getVideoElement(source, autoplay, background) {
-  const video = document.createElement('video');
-  video.setAttribute('controls', '');
-  if (autoplay) video.setAttribute('autoplay', '');
-  if (background) {
-    video.setAttribute('loop', '');
-    video.setAttribute('playsinline', '');
-    video.removeAttribute('controls');
-    video.addEventListener('canplay', () => {
-      video.muted = true;
-      if (autoplay) video.play();
-    });
-  }
+  const thumbContainer = document.createElement('div');
+  thumbContainer.className = 'gallery-thumbnails';
 
-  const sourceEl = document.createElement('source');
-  sourceEl.setAttribute('src', source);
-  sourceEl.setAttribute('type', `video/${source.split('.').pop()}`);
-  video.append(sourceEl);
-
-  return video;
-}
-
-export default async function decorate(block) {
+  // Collect all video links (only DAM assets)
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
-  block.textContent = '';
-  block.dataset.embedLoaded = false;
+  // Helper to create video element
+  function createVideoElement(url, autoplay = false) {
+    const video = document.createElement('video');
+    video.src = url;
+    video.controls = true;
+    video.playsInline = true;
+    video.autoplay = autoplay;
+    video.muted = autoplay; // muted if autoplay
+    video.setAttribute('preload', 'metadata');
+    return video;
+  }
 
-  const autoplay = block.classList.contains('autoplay');
-
-  // Main container
-  const mainContainer = document.createElement('div');
-  mainContainer.className = 'gallery-main-video';
-  block.append(mainContainer);
-
-  // Thumbnail container
-  const thumbContainer = document.createElement('div');
-  thumbContainer.className = 'gallery-thumbnails';
-  block.append(thumbContainer);
-
-  // Load first video
+  // Load the first video in main container
   const firstVideoUrl = links[0].href;
-  const firstVideoEl = getVideoElement(firstVideoUrl, autoplay, false);
-  mainContainer.append(firstVideoEl);
-  block.dataset.embedLoaded = true;
+  let mainVideo = createVideoElement(firstVideoUrl, true);
+  mainContainer.append(mainVideo);
 
-  // Add thumbnails for switching videos
+  // Create thumbnails for remaining videos
   links.forEach((link, index) => {
-    const thumb = document.createElement('div');
+    if (index === 0) return; // skip first video
+    const thumb = document.createElement('video');
+    thumb.src = link.href;
+    thumb.muted = true;
+    thumb.controls = false;
     thumb.className = 'gallery-thumb';
-    thumb.textContent = `Video ${index + 1}`; // can be replaced with thumbnail preview
+
+    // On click → replace main video
     thumb.addEventListener('click', () => {
       mainContainer.innerHTML = '';
-      const newVideo = getVideoElement(link.href, true, false);
-      mainContainer.append(newVideo);
+      mainVideo = createVideoElement(link.href, true);
+      mainContainer.append(mainVideo);
     });
+
     thumbContainer.append(thumb);
   });
 
-  // Auto play on scroll
-  if (autoplay) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        observer.disconnect();
-        if (!prefersReducedMotion.matches) {
-          const video = mainContainer.querySelector('video');
-          if (video) {
-            video.muted = true;
-            video.play();
-          }
-        }
-      }
-    });
-    observer.observe(block);
-  }
+  // Append to block
+  block.innerHTML = '';
+  block.append(mainContainer);
+  block.append(thumbContainer);
 }
