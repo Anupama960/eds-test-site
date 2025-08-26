@@ -25,12 +25,12 @@
           "component": "reference",
           "name": "videos",
           "label": "Videos",
-          "multi": "true",
           "fields": [
             {
               "component": "aem-content",
               "name": "DAM_Video",
               "label": "Select DAM Video",
+              "multi": "true",
               "condition": {
                 "field": "source_type",
                 "value": "dam"
