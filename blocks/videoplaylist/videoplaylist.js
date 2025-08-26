@@ -1,38 +1,45 @@
 export default function decorate(block) {
-  const links = Array.from(block.querySelectorAll('a'));
-  if (links.length === 0) return;
+  const videos = Array.from(block.querySelectorAll('a')); // EDS stores DAM refs as links
 
-  // Containers
-  const mainContainer = document.createElement('div');
-  mainContainer.className = 'playlist-main-video';
+  if (!videos.length) return;
 
-  const sideContainer = document.createElement('div');
-  sideContainer.className = 'playlist-side-videos';
+  // Main container
+  const container = document.createElement('div');
+  container.className = 'videoplaylist';
 
-  block.innerHTML = '';
-
-  // Main video
+  // Main video section
+  const mainVideoWrapper = document.createElement('div');
+  mainVideoWrapper.className = 'main-video';
   const mainVideo = document.createElement('video');
-  mainVideo.setAttribute('controls', '');
-  mainVideo.src = links[0].href;
-  mainContainer.appendChild(mainVideo);
+  mainVideo.controls = true;
+  mainVideo.src = videos[0].href; // first video
+  mainVideoWrapper.append(mainVideo);
 
-  // Side videos
-  links.forEach((link, idx) => {
-    if (idx === 0) return;
+  // Playlist (right side)
+  const playlistWrapper = document.createElement('div');
+  playlistWrapper.className = 'playlist';
+
+  videos.forEach((link, index) => {
+    if (index === 0) return;
     const thumb = document.createElement('video');
-    thumb.setAttribute('controls', '');
+    thumb.className = 'playlist-video';
     thumb.src = link.href;
-    thumb.className = 'playlist-thumb';
+    thumb.muted = true;
 
+    // Change main video on click
     thumb.addEventListener('click', () => {
       mainVideo.src = link.href;
       mainVideo.play();
     });
 
-    sideContainer.appendChild(thumb);
+    playlistWrapper.append(thumb);
+
+    // remove links from DOM after processing
   });
 
-  block.appendChild(mainContainer);
-  block.appendChild(sideContainer);
+  container.append(mainVideoWrapper, playlistWrapper);
+
+  // replace block content
+  block.textContent = '';
+  block.append(container);
 }
