@@ -54,7 +54,8 @@
         "embed-adaptive-form",
         "video",
         "video-gallery",
-        "videoplayer"
+        "videoplayer",
+        "videoplaylist"
       ]
     }
   ]

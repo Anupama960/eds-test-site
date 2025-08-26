@@ -313,5 +313,68 @@
         ]
       }
     ]
+  },
+  {
+    "id": "videoplaylist",
+    "fields": [
+      {
+        "component": "multifield",
+        "name": "videos",
+        "label": "Videos",
+        "fields": [
+          {
+            "component": "radio",
+            "name": "source_type",
+            "label": "Video Source",
+            "valueType": "string",
+            "options": [
+              {
+                "name": "External URL",
+                "value": "url"
+              },
+              {
+                "name": "DAM Video",
+                "value": "dam"
+              }
+            ]
+          },
+          {
+            "component": "text",
+            "name": "External_URL",
+            "label": "Video URL",
+            "condition": {
+              "field": "source_type",
+              "value": "url"
+            }
+          },
+          {
+            "component": "aem-content",
+            "name": "DAM_Video",
+            "label": "Select DAM Video",
+            "condition": {
+              "field": "source_type",
+              "value": "dam"
+            }
+          }
+        ]
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Auto Play",
+            "children": [
+              {
+                "name": "AutoPlay",
+                "value": "autoplay"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

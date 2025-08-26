@@ -19,7 +19,8 @@
       "embed-adaptive-form",
       "video",
       "video-gallery",
-      "videoplayer"
+      "videoplayer",
+      "videoplaylist"
     ]
   },
   {
@@ -53,6 +54,10 @@
   },
   {
     "id": "videoplayer",
+    "components": []
+  },
+  {
+    "id": "videoplaylist",
     "components": []
   }
 ]
