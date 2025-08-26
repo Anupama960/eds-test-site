@@ -1,4 +1,4 @@
-.videoplaylist {
+/* .videoplaylist {
   display: flex;
   gap: 16px;
 }
@@ -33,4 +33,4 @@
 .video-thumb.active {
   border: 2px solid #0070f3;
   border-radius: 4px;
-}
+} */
