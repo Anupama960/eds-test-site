@@ -1,38 +1,40 @@
 export default function decorate(block) {
-  const links = [...block.querySelectorAll('a')];
-  if (!links.length) return;
-
-  // Clear block
-  block.innerHTML = '';
-
-  // Containers
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
 
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
 
-  block.append(mainContainer, thumbContainer);
+  // Collect video links from DAM
+  const links = Array.from(block.querySelectorAll('a'));
+  if (!links.length) return;
 
-  // Main video (first one)
-  const mainVideo = document.createElement('video');
-  mainVideo.controls = true;
-  mainVideo.src = links[0].href;
-  mainContainer.append(mainVideo);
+  // Load first video in main container
+  const firstVideo = document.createElement('video');
+  firstVideo.src = links[0].href;
+  firstVideo.controls = true;
+  firstVideo.className = 'main-video';
+  mainContainer.appendChild(firstVideo);
 
-  // Thumbnails for all videos
+  // Create thumbnails for all videos
   links.forEach((link, index) => {
     const thumb = document.createElement('video');
     thumb.src = link.href;
+    thumb.controls = false;
     thumb.muted = true;
-    thumb.className = 'thumbnail';
-    thumbContainer.append(thumb);
+    thumb.className = 'thumbnail-video';
 
-    // Switch video on click
+    // On click, change main video
     thumb.addEventListener('click', () => {
-      mainVideo.src = link.href;
-      mainVideo.play();
+      firstVideo.src = link.href;
+      firstVideo.play();
     });
+
+    thumbContainer.appendChild(thumb);
   });
+
+  // Replace block content
+  block.innerHTML = '';
+  block.appendChild(mainContainer);
+  block.appendChild(thumbContainer);
 }
- 
