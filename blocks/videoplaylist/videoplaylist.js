@@ -34,7 +34,6 @@ mainVideo.play();
     playlistWrapper.append(thumb);
  
     // remove links from DOM after processing
-    if (index === 0) link.remove();
   });
  
   container.append(mainVideoWrapper, playlistWrapper);
