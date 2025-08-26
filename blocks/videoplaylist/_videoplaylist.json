@@ -23,20 +23,11 @@
       "fields": [
         {
           "component": "reference",
+          "valueType": "string",
           "name": "videos",
-          "label": "Videos",
-          "fields": [
-            {
-              "component": "aem-content",
-              "name": "DAM_Video",
-              "label": "Select DAM Video",
-              "multi": "true",
-              "condition": {
-                "field": "source_type",
-                "value": "dam"
-              }
-            }
-          ]
+          "label": "Select Videos from DAM",
+          "multi": true,
+          "filter": "video"
         }
       ]
     }
