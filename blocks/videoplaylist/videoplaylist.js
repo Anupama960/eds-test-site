@@ -2,6 +2,7 @@ export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
+  // Create layout containers
   const layout = document.createElement('div');
   layout.className = 'video-playlist-layout';
 
@@ -31,19 +32,21 @@ export default function decorate(block) {
     return video;
   }
 
-  // Main video
+  // Render the first video in the main area
   const firstVideo = createVideo(links[0].href, true);
   main.append(firstVideo);
 
-  // Thumbnails
+  // Render the rest as thumbnails
   links.forEach((link, index) => {
     if (index === 0) return;
+
     const thumb = createVideo(link.href);
     thumb.addEventListener('click', () => {
       main.innerHTML = '';
       const newMain = createVideo(link.href, true);
       main.append(newMain);
     });
+
     thumbs.append(thumb);
   });
 }
