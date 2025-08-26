@@ -3,38 +3,34 @@
   gap: 16px;
 }
 
-.main-video {
-  flex: 3;
+.video-area {
+  flex: 2;
 }
 
-.main-video video {
+.video-area video {
   width: 100%;
-  height: auto;
   border-radius: 8px;
 }
 
-.playlist {
+.video-thumbs-area {
   flex: 1;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.video-thumbs {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 500px; /* scroll if many thumbnails */
-  overflow-y: auto;
 }
 
-.playlist-item {
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.playlist-item.active {
-  border-color: #007bff; /* highlight active thumbnail */
-}
-
-.playlist-video {
+.video-thumb video {
   width: 100%;
-  height: 80px; /* thumbnail height */
-  object-fit: cover;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.video-thumb.active {
+  border: 2px solid #0070f3;
+  border-radius: 4px;
 }
