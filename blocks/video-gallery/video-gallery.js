@@ -1,45 +1,48 @@
 export default function decorate(block) {
-  const links = [...block.querySelectorAll('a')];
-  if (!links.length) return;
+  // Collect all video URLs from the block (anchor or plain text)
+  const videoUrls = [...block.querySelectorAll('a')]
+    .map(a => a.href)
+    .concat(
+      [...block.querySelectorAll('span, div, p')]
+        .map(el => el.textContent.trim())
+        .filter(url => url.endsWith('.mp4'))
+    );
 
-  // Create main container
+  if (!videoUrls.length) return;
+
+  block.innerHTML = '';
+
+  const galleryContainer = document.createElement('div');
+  galleryContainer.className = 'video-gallery';
+
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
 
-  // Create thumbnail container
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
 
-  // Loop through videos
-  links.forEach((link, index) => {
-    const videoUrl = link.href;
+  // First video in center
+  const firstVideo = document.createElement('video');
+  firstVideo.controls = true;
+  firstVideo.src = videoUrls[0];
+  mainContainer.append(firstVideo);
 
-    if (index === 0) {
-      // First video → main player
-      const video = document.createElement('video');
-      video.src = videoUrl;
-      video.controls = true;
-      video.setAttribute('playsinline', '');
-      mainContainer.appendChild(video);
-    } else {
-      // Rest → thumbnails
-      const thumb = document.createElement('video');
-      thumb.src = videoUrl;
-      thumb.muted = true;
-      thumb.setAttribute('playsinline', '');
-      thumbContainer.appendChild(thumb);
-
-      // On click → replace main video
-      thumb.addEventListener('click', () => {
-        const mainVideo = mainContainer.querySelector('video');
-        mainVideo.src = videoUrl;
-        mainVideo.play();
-      });
-    }
+  // Other videos as thumbnails
+  videoUrls.forEach((url, index) => {
+    if (index === 0) return;
+    const thumb = document.createElement('div');
+    thumb.className = 'gallery-thumb';
+    thumb.textContent = `Video ${index+1}`;
+    thumb.addEventListener('click', () => {
+      mainContainer.innerHTML = '';
+      const newVideo = document.createElement('video');
+      newVideo.controls = true;
+      newVideo.src = url;
+      mainContainer.append(newVideo);
+    });
+    thumbContainer.append(thumb);
   });
 
-  // Clear block and append new structure
-  block.innerHTML = '';
-  block.appendChild(mainContainer);
-  block.appendChild(thumbContainer);
+  galleryContainer.append(mainContainer, thumbContainer);
+  block.append(galleryContainer);
 }
