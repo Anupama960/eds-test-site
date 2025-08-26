@@ -28,24 +28,6 @@
           "label": "Select Videos from DAM",
           "multi": true,
           "filter": "video"
-        },
-        {
-          "component": "multiselect",
-          "name": "classes",
-          "value": "",
-          "label": "Options",
-          "valueType": "string",
-          "options": [
-            {
-              "name": "Auto Play",
-              "children": [
-                {
-                  "name": "AutoPlay",
-                  "value": "autoplay"
-                }
-              ]
-            }
-          ]
         }
       ]
     }
