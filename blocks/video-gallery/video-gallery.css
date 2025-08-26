@@ -1,0 +1,46 @@
+.video-gallery {
+  max-width: 1000px;
+  margin: 24px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-main-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-main-video video {
+  max-width: 100%;
+  height: auto;
+}
+
+.gallery-thumbnails {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gallery-thumb {
+  width: 120px;
+  height: 68px;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.gallery-thumb:hover {
+  transform: scale(1.05);
+  background: #444;
+}
