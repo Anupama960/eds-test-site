@@ -29,7 +29,7 @@ export default function decorate(block) {
       mainVideo.src = link.href;
       mainVideo.play();
     });
- 
+
     sideContainer.appendChild(thumb);
   });
 
