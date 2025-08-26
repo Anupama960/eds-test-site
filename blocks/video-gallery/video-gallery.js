@@ -1,53 +1,45 @@
 export default function decorate(block) {
-  const links = Array.from(block.querySelectorAll('a'));
-
-  if (!links.length) return;
-
-  // Create layout containers
-  const layoutContainer = document.createElement('div');
-  layoutContainer.className = 'gallery-layout';
-
+  // Create containers
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
-
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
 
-  layoutContainer.append(mainContainer, thumbContainer);
-  block.innerHTML = '';
-  block.append(layoutContainer);
+  block.append(mainContainer, thumbContainer);
 
-  // Function to embed video
-  function embedDAMVideo(url) {
-    const video = document.createElement('video');
-    video.src = url;
-    video.controls = true;
-    video.width = 640;
-    video.height = 360;
-    return video;
+  // Collect video links
+  const links = Array.from(block.querySelectorAll('a'));
+  if (!links.length) return;
+
+  // Function to create video iframe
+  function createVideo(url) {
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.width = '560';
+    iframe.height = '315';
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    return iframe;
   }
 
-  // Show first video in main container
+  // Load first video in main container
   const firstLink = links[0];
-  const firstVideo = embedDAMVideo(firstLink.href);
+  const firstVideo = createVideo(firstLink.href);
   mainContainer.append(firstVideo);
 
-  // Create thumbnails for the rest
+  // Build thumbnails
   links.forEach((link, index) => {
-    if (index === 0) return;
+    const thumb = document.createElement('button');
+    thumb.className = 'gallery-thumb';
+    thumb.textContent = `Video ${index + 1}`;
 
-    const thumbVideo = embedDAMVideo(link.href);
-    thumbVideo.width = 160;
-    thumbVideo.height = 90;
-    thumbVideo.muted = true;
-    thumbVideo.playsInline = true;
-
-    thumbVideo.addEventListener('click', () => {
+    thumb.addEventListener('click', () => {
       mainContainer.innerHTML = '';
-      const newMainVideo = embedDAMVideo(link.href);
-      mainContainer.append(newMainVideo);
+      const video = createVideo(link.href);
+      mainContainer.append(video);
     });
 
-    thumbContainer.append(thumbVideo);
+    thumbContainer.append(thumb);
   });
 }
