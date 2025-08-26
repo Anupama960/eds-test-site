@@ -1,19 +1,21 @@
 export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
 
-  if (!links.length) {
-    return;
-  }
+  if (!links.length) return;
 
-  // Create containers
+  // Create layout containers
+  const layoutContainer = document.createElement('div');
+  layoutContainer.className = 'gallery-layout';
+
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
 
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
 
+  layoutContainer.append(mainContainer, thumbContainer);
   block.innerHTML = '';
-  block.append(mainContainer, thumbContainer);
+  block.append(layoutContainer);
 
   // Function to embed DAM video
   function embedDAMVideo(url) {
@@ -38,14 +40,12 @@ export default function decorate(block) {
     thumbVideo.muted = true;
     thumbVideo.playsInline = true;
 
-    // When thumbnail clicked → replace main video
     thumbVideo.addEventListener('click', () => {
       mainContainer.innerHTML = '';
       const newMainVideo = embedDAMVideo(link.href);
       mainContainer.append(newMainVideo);
     });
 
-    // Skip showing first video again in thumbnails
     if (index > 0) {
       thumbContainer.append(thumbVideo);
     }
