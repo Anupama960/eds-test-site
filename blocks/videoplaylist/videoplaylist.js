@@ -1,15 +1,6 @@
 export default function decorate(block) {
-  // Collect all video URLs from anchor tags inside block
-  const links = block.querySelectorAll('a');
-  const videoUrls = Array.from(links).map((link) => link.href);
-
-  if (!videoUrls.length) return;
-
-  // Destructure first and remaining videos
-  const [firstVideo, ...otherVideos] = videoUrls;
-
-  // Clear the block content
-  block.textContent = '';
+  const videos = Array.from(block.querySelectorAll('a'));
+  if (!videos.length) return;
 
   // Main container
   const container = document.createElement('div');
@@ -21,39 +12,38 @@ export default function decorate(block) {
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = firstVideo;
+  mainVideo.src = videos[0].href;
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
-  // Thumbnails area
+  // Thumbnails wrapper
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
   const thumbsContainer = document.createElement('div');
   thumbsContainer.className = 'video-thumbs';
 
-  // Add the first video as the first thumbnail
-  const allVideos = [firstVideo, ...otherVideos];
-
-  allVideos.forEach((url, index) => {
+  videos.forEach((link, index) => {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
     thumbWrapper.dataset.videoNum = index;
 
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
-    thumb.src = url;
+    thumb.src = link.href;
     thumb.muted = true;
     thumb.setAttribute('playsinline', '');
     thumb.setAttribute('preload', 'metadata');
 
-    // On click, update main video
+    // Click event for switching main video
     thumbWrapper.addEventListener('click', () => {
-      mainVideo.src = url;
+      mainVideo.src = link.href;
       mainVideo.play();
 
+      // Update active class
+      // document.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
       thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
@@ -65,5 +55,6 @@ export default function decorate(block) {
   thumbsArea.appendChild(thumbsContainer);
   container.append(videoArea, thumbsArea);
 
+  block.textContent = '';
   block.append(container);
 }
