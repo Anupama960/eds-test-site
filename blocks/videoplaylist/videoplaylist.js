@@ -21,13 +21,16 @@ export default function decorate(block) {
 
   videos.forEach((link, index) => {
     if (index === 0) return;
+
+    const thumbWrapper = document.createElement('div');
+    thumbWrapper.className = 'playlist-item';
+
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
     thumb.src = link.href;
     thumb.muted = true;
     thumb.playsInline = true;
     thumb.preload = 'metadata';
-
 
     thumb.addEventListener('error', () => {
       const fallback = document.createElement('div');
@@ -42,17 +45,15 @@ export default function decorate(block) {
       mainVideo.play();
     });
 
-    thumbWrapper.appendChild(thumb)
+    thumbWrapper.appendChild(thumb);
     playlistWrapper.appendChild(thumb);
     // remove links from DOM after processing
   });
 
-    console.log('Playlist videos:', playlistWrapper.children.length);
-
+  console.log('Playlist videos:', playlistWrapper.children.length);
 
   container.append(mainVideoWrapper, playlistWrapper);
 
-  // replace block content
   block.textContent = '';
   block.append(container);
 }
