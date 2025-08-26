@@ -1,5 +1,4 @@
-/* Main gallery container */
-.video-gallery {
+.videogallery {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -8,52 +7,63 @@
   max-width: 1200px;
 }
 
-/* Main video player */
-.gallery-main-video {
-  flex: 3;
-  max-width: 800px;
+/* Main video container */
+.videogallery-main {
+  flex: 2;
 }
 
-.gallery-main-video video {
+.videogallery-main video {
   width: 100%;
-  height: auto;
+  max-height: 500px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  object-fit: contain;
 }
 
-/* Thumbnail container */
-.gallery-thumbnails {
+/* Thumbnails list */
+.videogallery-thumbs {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-height: 500px;
+  gap: 15px;
   overflow-y: auto;
+  max-height: 500px;
+  padding-right: 10px;
 }
 
-/* Each thumbnail video */
-.gallery-thumbnails video {
+.videogallery-thumbs video {
   width: 100%;
+  height: auto;
   cursor: pointer;
   border-radius: 8px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  object-fit: cover;
 }
 
-.gallery-thumbnails video:hover {
+.videogallery-thumbs video:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
-
-/* Scrollbar style for thumbnails */
-.gallery-thumbnails::-webkit-scrollbar {
-  width: 6px;
+ 
+/* Highlight active video */
+.videogallery-thumbs video.active {
+  border: 3px solid #0073e6;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 }
-
-.gallery-thumbnails::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
-}
-
-.gallery-thumbnails::-webkit-scrollbar-track {
-  background: #f5f5f5;
+ 
+/* Responsive */
+@media (max-width: 900px) {
+  .videogallery {
+    flex-direction: column;
+  }
+  .videogallery-thumbs {
+    flex-direction: row;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .videogallery-thumbs video {
+    width: 150px;
+    height: auto;
+  }
 }

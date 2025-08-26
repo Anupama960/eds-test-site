@@ -1,8 +1,8 @@
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-function getVideoElement(source, autoplay, background) {
+function getVideoElement(source, autoplay, background, isThumb = false) {
   const video = document.createElement('video');
-  video.setAttribute('controls', '');
+  if (!isThumb) video.setAttribute('controls', '');
   if (autoplay) video.setAttribute('autoplay', '');
   if (background) {
     video.setAttribute('loop', '');
@@ -10,7 +10,7 @@ function getVideoElement(source, autoplay, background) {
     video.removeAttribute('controls');
     video.addEventListener('canplay', () => {
       video.muted = true;
-      if (autoplay) video.play();
+if (autoplay) video.play();
     });
   }
 
@@ -19,58 +19,81 @@ function getVideoElement(source, autoplay, background) {
   sourceEl.setAttribute('type', `video/${source.split('.').pop()}`);
   video.append(sourceEl);
 
+  // Thumbnail styling
+  if (isThumb) {
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    video.autoplay = true;
+  }
+
   return video;
 }
-export default function decorate(block) {
-  // Create containers
+
+export default async function decorate(block) {
+  const links = Array.from(block.querySelectorAll(''));
+  if (!links.length) return;
+
+  block.textContent = "";
+  block.dataset.embedLoaded = false;
+
+  const autoplay = block.classList.contains('autoplay');
+
+  // Main gallery container (flex layout handled in CSS)
+  const galleryWrapper = document.createElement('div');
+  galleryWrapper.className = 'video-gallery-wrapper';
+
+  // Main video container
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
 
+  // Thumbnail container
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
 
-  // Collect all video links (only DAM assets)
-  const links = Array.from(block.querySelectorAll('a'));
-  if (!links.length) return;
+  galleryWrapper.append(mainContainer, thumbContainer);
+  block.append(galleryWrapper);
 
-  // Helper to create video element
-  function createVideoElement(url, autoplay = false) {
-    const video = document.createElement('video');
-    video.src = url;
-    video.controls = true;
-    video.playsInline = true;
-    video.autoplay = autoplay;
-    video.muted = autoplay; // muted if autoplay
-    video.setAttribute('preload', 'metadata');
-    return video;
-  }
-
-  // Load the first video in main container
+  // Load the first video as main
   const firstVideoUrl = links[0].href;
-  let mainVideo = createVideoElement(firstVideoUrl, true);
+  const mainVideo = getVideoElement(firstVideoUrl, autoplay, false);
+  mainVideo.classList.add('main-video');
   mainContainer.append(mainVideo);
+  block.dataset.embedLoaded = true;
 
-  // Create thumbnails for remaining videos
+  // Create thumbnails for the rest
   links.forEach((link, index) => {
-    if (index === 0) return; // skip first video
-    const thumb = document.createElement('video');
-    thumb.src = link.href;
-    thumb.muted = true;
-    thumb.controls = false;
-    thumb.className = 'gallery-thumb';
+    const isFirst = index === 0;
+    const thumbVideo = getVideoElement(link.href, false, false, true);
+    thumbVideo.classList.add('thumb-video');
 
-    // On click → replace main video
-    thumb.addEventListener('click', () => {
-      mainContainer.innerHTML = '';
-      mainVideo = createVideoElement(link.href, true);
-      mainContainer.append(mainVideo);
-    });
+    if (!isFirst) {
+      thumbVideo.addEventListener('click', () => {
+        mainContainer.innerHTML = "';
+        const newVideo = getVideoElement(link.href, true, false);
+        newVideo.classList.add('main-video');
+        mainContainer.append(newVideo);
+newVideo.play();
+      });
+    }
 
-    thumbContainer.append(thumb);
+    thumbContainer.append(thumbVideo);
   });
-
-  // Append to block
-  block.innerHTML = '';
-  block.append(mainContainer);
-  block.append(thumbContainer);
+ 
+  // Auto play on scroll
+  if (autoplay) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) {
+        observer.disconnect();
+        if (!prefersReducedMotion.matches) {
+          const video = mainContainer.querySelector('video');
+          if (video) {
+            video.muted = true;
+video.play();
+          }
+        }
+      }
+    });
+    observer.observe(block);
+  }
 }
