@@ -1,31 +1,31 @@
 export default function decorate(block) {
-  const videos = Array.from(block.querySelectorAll('a'));
-  if (!videos.length) return;
+  const links = Array.from(block.querySelectorAll('a'));
+  if (!links.length) return;
 
   // Create main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
-  // Create main video area
+  // Main video area (center)
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = videos[0].href;
+  mainVideo.src = links[0].href;
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
-  // Create thumbnails area
+  // Thumbnails area (right side)
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
   const thumbsContainer = document.createElement('div');
   thumbsContainer.className = 'video-thumbs';
 
-  videos.forEach((link, index) => {
+  links.forEach((link, index) => {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
     thumbWrapper.dataset.videoNum = index;
@@ -37,13 +37,11 @@ export default function decorate(block) {
     thumb.setAttribute('playsinline', '');
     thumb.setAttribute('preload', 'metadata');
 
-    // Click event to switch main video
     thumbWrapper.addEventListener('click', () => {
       mainVideo.src = link.href;
       mainVideo.play();
 
-      // Update active thumbnail
-      thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
+      thumbsContainer.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
@@ -54,7 +52,7 @@ export default function decorate(block) {
   thumbsArea.appendChild(thumbsContainer);
   container.append(videoArea, thumbsArea);
 
-  // Replace block content
+  // Replace original block content
   block.textContent = '';
   block.append(container);
 }

@@ -2,34 +2,34 @@
   display: flex;
   gap: 16px;
 }
- 
+
 .video-area {
   flex: 2;
 }
- 
+
 .video-area video {
   width: 100%;
   border-radius: 8px;
 }
- 
+
 .video-thumbs-area {
   flex: 1;
   overflow-y: auto;
   max-height: 500px;
 }
- 
+
 .video-thumbs {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
- 
+
 .video-thumb video {
   width: 100%;
   cursor: pointer;
   border-radius: 4px;
 }
- 
+
 .video-thumb.active {
   border: 2px solid #0070f3;
   border-radius: 4px;
