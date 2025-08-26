@@ -2,11 +2,11 @@ export default function decorate(block) {
   const videos = Array.from(block.querySelectorAll('a'));
   if (!videos.length) return;
 
-  // Main container
+  // Create main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
-  // Main video area
+  // Create main video area
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
@@ -18,7 +18,7 @@ export default function decorate(block) {
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
-  // Thumbnails wrapper
+  // Create thumbnails area
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
@@ -37,14 +37,13 @@ export default function decorate(block) {
     thumb.setAttribute('playsinline', '');
     thumb.setAttribute('preload', 'metadata');
 
-    // Click event for switching main video
+    // Click event to switch main video
     thumbWrapper.addEventListener('click', () => {
       mainVideo.src = link.href;
       mainVideo.play();
 
-      // Update active class
-      // document.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
-      thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
+      // Update active thumbnail
+      thumbsContainer.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
@@ -55,6 +54,7 @@ export default function decorate(block) {
   thumbsArea.appendChild(thumbsContainer);
   container.append(videoArea, thumbsArea);
 
+  // Replace block content
   block.textContent = '';
   block.append(container);
 }
