@@ -25,6 +25,7 @@
           "component": "reference",
           "name": "videos",
           "label": "Videos",
+          "multi": "true",
           "fields": [
             {
               "component": "aem-content",
