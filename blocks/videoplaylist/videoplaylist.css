@@ -1,35 +1,36 @@
-.video-playlist {
+.videoplaylist {
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
+  gap: 16px;
 }
 
-.main-video {
-  flex: 1;
-  max-width: 70%;
+.video-area {
+  flex: 2;
 }
 
-.main-video video {
+.video-area video {
   width: 100%;
-  height: auto;
   border-radius: 8px;
 }
 
-.playlist {
+.video-thumbs-area {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.video-thumbs {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-height: 500px; /* Adjust as needed */
-  overflow-y: auto;
-  width: 25%;
+  gap: 8px;
 }
 
-.playlist-item {
-  cursor: pointer;
-}
-
-.playlist-video {
+.video-thumb video {
   width: 100%;
-  height: auto;
-  border-radius: 6px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.video-thumb.active {
+  border: 2px solid #0070f3;
+  border-radius: 4px;
 }

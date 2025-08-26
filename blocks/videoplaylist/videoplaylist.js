@@ -1,88 +1,59 @@
 export default function decorate(block) {
-  // Try JSON first
-  const data = block.querySelector('[data-videos]');
-  let videos = [];
-
-  if (data) {
-    try {
-      videos = JSON.parse(data.getAttribute('data-videos'));
-    } catch (e) {
-      // console.error('Invalid JSON in data-videos:', e);
-    }
-  }
-
-  // If no JSON, read from DOM thumbnails
-  if (!videos.length) {
-    const thumbArea = block.querySelector('.video-thumbs-area, .simplebar-content-wrapper');
-    if (thumbArea) {
-      videos = Array.from(thumbArea.querySelectorAll('video, source'))
-        .map((el) => el.src)
-        .filter((src) => src);
-    }
-  }
-
+  const videos = Array.from(block.querySelectorAll('a'));
   if (!videos.length) return;
-
-  // Destructure videos: first = main, rest = playlist
-  const [mainSrc, ...playlistSrcs] = videos;
 
   // Main container
   const container = document.createElement('div');
-  container.className = 'video-playlist';
+  container.className = 'videoplaylist videoplaylist--with-thumbs';
 
-  // Main video wrapper
-  const mainVideoWrapper = document.createElement('div');
-  mainVideoWrapper.className = 'main-video';
+  // Main video area
+  const videoArea = document.createElement('div');
+  videoArea.className = 'video-area';
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = mainSrc;
-  mainVideoWrapper.appendChild(mainVideo);
+  mainVideo.src = videos[0].href;
+  mainVideo.setAttribute('playsinline', '');
+  mainVideo.setAttribute('preload', 'metadata');
+  mainVideo.className = 'main-video';
+  videoArea.appendChild(mainVideo);
 
-  // Playlist wrapper
-  const playlistWrapper = document.createElement('div');
-  playlistWrapper.className = 'playlist';
+  // Thumbnails wrapper
+  const thumbsArea = document.createElement('div');
+  thumbsArea.className = 'video-thumbs-area';
 
-  // Define function BEFORE using it
-  function createPlaylistItem(src) {
-    const item = document.createElement('div');
-    item.className = 'playlist-item';
+  const thumbsContainer = document.createElement('div');
+  thumbsContainer.className = 'video-thumbs';
+
+  videos.forEach((link, index) => {
+    const thumbWrapper = document.createElement('div');
+    thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
+    thumbWrapper.dataset.videoNum = index;
 
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
-    thumb.src = src;
+    thumb.src = link.href;
     thumb.muted = true;
-    thumb.playsInline = true;
-    thumb.preload = 'metadata';
+    thumb.setAttribute('playsinline', '');
+    thumb.setAttribute('preload', 'metadata');
 
-    item.appendChild(thumb);
-
-    // Click to swap videos
-    thumb.addEventListener('click', () => {
-      const currentMainSrc = mainVideo.src;
-      mainVideo.src = src;
+    // Click event for switching main video
+    thumbWrapper.addEventListener('click', () => {
+      mainVideo.src = link.href;
       mainVideo.play();
 
-      // Replace clicked video with old main
-      item.innerHTML = '';
-      const oldThumb = document.createElement('video');
-      oldThumb.className = 'playlist-video';
-      oldThumb.src = currentMainSrc;
-      oldThumb.muted = true;
-      oldThumb.playsInline = true;
-      oldThumb.preload = 'metadata';
-      item.appendChild(oldThumb);
+      // Update active class
+      document.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
+      thumbWrapper.classList.add('active');
     });
 
-    playlistWrapper.appendChild(item);
-  }
+    thumbWrapper.appendChild(thumb);
+    thumbsContainer.appendChild(thumbWrapper);
+  });
 
-  // Build playlist items
-  playlistSrcs.forEach((src) => createPlaylistItem(src));
+  thumbsArea.appendChild(thumbsContainer);
+  container.append(videoArea, thumbsArea);
 
-  container.appendChild(mainVideoWrapper);
-  container.appendChild(playlistWrapper);
-
-  block.innerHTML = '';
-  block.appendChild(container);
+  block.textContent = '';
+  block.append(container);
 }
