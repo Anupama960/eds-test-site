@@ -16,8 +16,8 @@ export default function decorate(block) {
     const thumbArea = block.querySelector('.video-thumbs-area, .simplebar-content-wrapper');
     if (thumbArea) {
       videos = Array.from(thumbArea.querySelectorAll('video, source'))
-        .map(el => el.src)
-        .filter(src => src);
+        .map((el) => el.src)
+        .filter((src) => src);
     }
   }
 
@@ -78,7 +78,7 @@ export default function decorate(block) {
   }
 
   // Build playlist items
-  playlistSrcs.forEach(src => createPlaylistItem(src));
+  playlistSrcs.forEach((src) => createPlaylistItem(src));
 
   container.appendChild(mainVideoWrapper);
   container.appendChild(playlistWrapper);
