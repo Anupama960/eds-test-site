@@ -1,73 +1,31 @@
-// export default function decorate(block) {
-//   const videoElements = Array.from(block.querySelectorAll('a'));
-//   if (videoElements.length === 0) return;
-
-//   // Use array destructuring
-//   const videos = videoElements.map((el) => el.href);
-//   const [mainSrc, ...playlistSrcs] = videos;
-
-//   // Main container
-//   const container = document.createElement('div');
-//   container.className = 'videoplaylist';
-
-//   // Main video
-//   const mainVideoWrapper = document.createElement('div');
-//   mainVideoWrapper.className = 'main-video';
-
-//   const mainVideo = document.createElement('video');
-//   mainVideo.controls = true;
-//   mainVideo.src = mainSrc;
-//   mainVideoWrapper.appendChild(mainVideo);
-
-//   // Playlist wrapper
-//   const playlistWrapper = document.createElement('div');
-//   playlistWrapper.className = 'playlist';
-
-//   playlistSrcs.forEach((src) => {
-//     const thumbWrapper = document.createElement('div');
-//     thumbWrapper.className = 'playlist-item';
-
-//     const thumb = document.createElement('video');
-//     thumb.className = 'playlist-video';
-//     thumb.src = src;
-//     thumb.muted = true;
-//     thumb.playsInline = true;
-//     thumb.preload = 'metadata';
-
-//     thumb.addEventListener('click', () => {
-//       mainVideo.src = src;
-//       mainVideo.play();
-//       playlistWrapper.querySelectorAll('.playlist-item').forEach((item) => {
-//         item.classList.remove('active');
-//       });
-//       thumbWrapper.classList.add('active');
-//     });
-
-//     thumbWrapper.appendChild(thumb);
-//     playlistWrapper.appendChild(thumbWrapper);
-//   });
-
-//   container.appendChild(mainVideoWrapper);
-//   container.appendChild(playlistWrapper);
-
-//   block.innerHTML = '';
-//   block.appendChild(container);
-// }
-
 export default function decorate(block) {
-  // Get the JSON array of DAM videos
+  // Try JSON first
   const data = block.querySelector('[data-videos]');
-  if (!data) return;
+  let videos = [];
 
-  const videos = JSON.parse(data.getAttribute('data-videos'));
+  if (data) {
+    try {
+      videos = JSON.parse(data.getAttribute('data-videos'));
+    } catch (e) {
+      console.error('Invalid JSON in data-videos:', e);
+    }
+  }
+
+  // If no JSON found, try to read thumbnails from .video-thumbs-area
+  if (!videos.length) {
+    const thumbArea = block.querySelector('.video-thumbs-area, .simplebar-content-wrapper');
+    if (thumbArea) {
+      videos = Array.from(thumbArea.querySelectorAll('video, source'))
+        .map(el => el.src)
+        .filter(src => src);
+    }
+  }
+
   if (!videos.length) return;
 
-  // Destructure main video and playlist
-  const [mainSrc, ...playlistSrcs] = videos;
-
-  // Main container
+  // Create main container with flex
   const container = document.createElement('div');
-  container.className = 'videoplaylist';
+  container.className = 'video-playlist';
 
   // Main video wrapper
   const mainVideoWrapper = document.createElement('div');
@@ -75,16 +33,19 @@ export default function decorate(block) {
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = mainSrc;
+  mainVideo.src = videos[0];
   mainVideoWrapper.appendChild(mainVideo);
 
-  // Playlist wrapper (right side)
+  // Playlist wrapper
   const playlistWrapper = document.createElement('div');
   playlistWrapper.className = 'playlist';
 
-  playlistSrcs.forEach((src, index) => {
-    const thumbWrapper = document.createElement('div');
-    thumbWrapper.className = 'playlist-item';
+  // Build playlist
+  videos.slice(1).forEach((src) => createPlaylistItem(src));
+
+  function createPlaylistItem(src) {
+    const item = document.createElement('div');
+    item.className = 'playlist-item';
 
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
@@ -93,27 +54,30 @@ export default function decorate(block) {
     thumb.playsInline = true;
     thumb.preload = 'metadata';
 
-    // Highlight first thumbnail by default
-    if (index === 0) thumbWrapper.classList.add('active');
+    item.appendChild(thumb);
 
-    // Click event to update main video
     thumb.addEventListener('click', () => {
+      const currentMainSrc = mainVideo.src;
       mainVideo.src = src;
       mainVideo.play();
-      playlistWrapper.querySelectorAll('.playlist-item').forEach((item) => {
-        item.classList.remove('active');
-      });
-      thumbWrapper.classList.add('active');
+
+      // Swap the clicked video with the main one
+      item.innerHTML = '';
+      const oldThumb = document.createElement('video');
+      oldThumb.className = 'playlist-video';
+      oldThumb.src = currentMainSrc;
+      oldThumb.muted = true;
+      oldThumb.playsInline = true;
+      oldThumb.preload = 'metadata';
+      item.appendChild(oldThumb);
     });
 
-    thumbWrapper.appendChild(thumb);
-    playlistWrapper.appendChild(thumbWrapper);
-  });
+    playlistWrapper.appendChild(item);
+  }
 
   container.appendChild(mainVideoWrapper);
   container.appendChild(playlistWrapper);
 
-  // Clear block and append container
   block.innerHTML = '';
   block.appendChild(container);
 }
