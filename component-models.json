@@ -234,12 +234,18 @@
     "id": "video-gallery",
     "fields": [
       {
-        "component": "reference",
-        "valueType": "string",
+        "component": "multifield",
         "name": "videos",
-        "label": "Select Videos from DAM",
-        "multi": true,
-        "filter": "video"
+        "label": "Videos",
+        "fields": [
+          {
+            "component": "textfield",
+            "name": "videoUrl",
+            "label": "Video URL (External or DAM Path)",
+            "valueType": "string",
+            "placeholder": "Enter video URL or select from DAM"
+          }
+        ]
       }
     ]
   },

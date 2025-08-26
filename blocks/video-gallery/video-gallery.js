@@ -1,53 +1,89 @@
-// export default function decorate(block) {
-//   const links = Array.from(block.querySelectorAll('a'));
+export default function decorate(block) {
+  const videoLinks = Array.from(block.querySelectorAll('a')).map(a => a.href);
 
-//   if (!links.length) {
-//     return;
-//   }
+  if (!videoLinks.length) return;
 
-//   // Create containers
-//   const mainContainer = document.createElement('div');
-//   mainContainer.className = 'gallery-main-video';
+  const [mainVideoUrl, ...otherVideos] = videoLinks;
 
-//   const thumbContainer = document.createElement('div');
-//   thumbContainer.className = 'gallery-thumbnails';
+  // Create container structure
+  const container = document.createElement('div');
+  container.className = 'video-gallery';
 
-//   block.innerHTML = '';
-//   block.append(mainContainer, thumbContainer);
+  const mainVideoWrapper = document.createElement('div');
+  mainVideoWrapper.className = 'main-video';
 
-//   // Function to embed DAM video
-//   function embedDAMVideo(url) {
-//     const video = document.createElement('video');
-//     video.src = url;
-//     video.controls = true;
-//     video.width = 640;
-//     video.height = 360;
-//     return video;
-//   }
+  const playlistWrapper = document.createElement('div');
+  playlistWrapper.className = 'video-playlist';
 
-//   // Show first video in main container
-//   const firstLink = links[0];
-//   const firstVideo = embedDAMVideo(firstLink.href);
-//   mainContainer.append(firstVideo);
+  // Utility: Create video or iframe
+  const createVideoElement = (url, isThumbnail = false) => {
+if (url.includes('youtube') || url.includes('youtu.be')) {
+      const iframe = document.createElement('iframe');
+iframe.src = `https://www.youtube.com/embed/${extractYouTubeId(url)}?rel=0`;
+      iframe.frameBorder = '0';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.loading = 'lazy';
+      iframe.className = isThumbnail ? 'thumbnail' : 'main-video-frame';
+      return iframe;
+    } else if (url.includes('vimeo')) {
+      const iframe = document.createElement('iframe');
+iframe.src = `https://player.vimeo.com/video/${extractVimeoId(url)}`;
+      iframe.frameBorder = '0';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.loading = 'lazy';
+      iframe.className = isThumbnail ? 'thumbnail' : 'main-video-frame';
+      return iframe;
+    } else {
+      const video = document.createElement('video');
+      video.src = url;
+      video.controls = true;
+      video.className = isThumbnail ? 'thumbnail' : 'main-video-frame';
+      if (isThumbnail) {
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = 'metadata';
+      }
+      return video;
+    }
+  };
 
-//   // Create thumbnails for rest
-//   links.forEach((link, index) => {
-//     const thumbVideo = embedDAMVideo(link.href);
-//     thumbVideo.width = 160;
-//     thumbVideo.height = 90;
-//     thumbVideo.muted = true;
-//     thumbVideo.playsInline = true;
+  // Extract YouTube ID
+  const extractYouTubeId = (url) => {
+    const regex = /(?:youtube\.com.*v=|youtu\.be\/)([^&]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : '';
+  };
 
-//     // When thumbnail clicked → replace main video
-//     thumbVideo.addEventListener('click', () => {
-//       mainContainer.innerHTML = '';
-//       const newMainVideo = embedDAMVideo(link.href);
-//       mainContainer.append(newMainVideo);
-//     });
+  // Extract Vimeo ID
+  const extractVimeoId = (url) => {
+    const regex = /vimeo\.com\/(\d+)/;
+    const match = url.match(regex);
+    return match ? match[1] : '';
+  };
 
-//     // Skip showing first video again in thumbnails
-//     if (index > 0) {
-//       thumbContainer.append(thumbVideo);
-//     }
-//   });
-// }
+  // Main video element
+  let mainVideo = createVideoElement(mainVideoUrl);
+  mainVideoWrapper.appendChild(mainVideo);
+
+  // Playlist thumbnails
+  otherVideos.forEach((videoUrl) => {
+    const thumbWrapper = document.createElement('div');
+    thumbWrapper.className = 'playlist-item';
+
+    const thumb = createVideoElement(videoUrl, true);
+    thumbWrapper.appendChild(thumb);
+
+    thumbWrapper.addEventListener('click', () => {
+      mainVideoWrapper.innerHTML = '';
+      mainVideo = createVideoElement(videoUrl);
+      mainVideoWrapper.appendChild(mainVideo);
+    });
+
+    playlistWrapper.appendChild(thumbWrapper);
+  });
+
+  container.append(mainVideoWrapper, playlistWrapper);
+
+  block.innerHTML = '';
+  block.append(container);
+}
