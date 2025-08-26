@@ -19,9 +19,8 @@ export default function decorate(block) {
   rows.forEach((row, index) => {
     const cells = row.querySelectorAll('div');
 
-    //Extract video URL (from text or <a> inside cell)
-    const videoUrl =
-      cells[0]?.querySelector('a')?.href || cells[0]?.innerText?.trim();
+    // Extract video URL (from text or <a> inside cell)
+    const videoUrl = cells[0]?.querySelector('a')?.href || cells[0]?.innerText?.trim();
 
     // Extract optional placeholder image
     const placeholderImage = cells[1]?.querySelector('img')?.src || '';
