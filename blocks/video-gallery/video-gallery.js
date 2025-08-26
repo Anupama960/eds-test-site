@@ -33,7 +33,7 @@ export default function decorate(block) {
       thumb.addEventListener('click', () => {
         const mainVideo = mainContainer.querySelector('video');
         mainVideo.src = videoUrl;
-mainVideo.play();
+        mainVideo.play();
       });
     }
   });
