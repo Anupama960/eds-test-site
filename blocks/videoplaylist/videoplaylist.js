@@ -1,60 +1,64 @@
 export default function decorate(block) {
-  const videos = Array.from(block.querySelectorAll('a'));
-  if (!videos.length) return;
-
+  // Collect all video URLs first
+  const links = block.querySelectorAll('a');
+  const videoUrls = Array.from(links).map(link => link.href);
+ 
+  if (!videoUrls.length) return;
+ 
+  // Clear block after collecting URLs
+  block.textContent = '';
+ 
   // Main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
-
+ 
   // Main video area
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
-
+ 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = videos[0].href;
+  mainVideo.src = videoUrls[0]; // First video as default
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
-
-  // Thumbnails wrapper
+ 
+  // Thumbnails
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
-
+ 
   const thumbsContainer = document.createElement('div');
   thumbsContainer.className = 'video-thumbs';
-
-  videos.forEach((link, index) => {
+ 
+  videoUrls.forEach((url, index) => {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
     thumbWrapper.dataset.videoNum = index;
-
+ 
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
-    thumb.src = link.href;
+    thumb.src = url;
     thumb.muted = true;
     thumb.setAttribute('playsinline', '');
     thumb.setAttribute('preload', 'metadata');
-
-    // Click event for switching main video
+ 
+    // On click, update main video
     thumbWrapper.addEventListener('click', () => {
-      mainVideo.src = link.href;
+      mainVideo.src = url;
       mainVideo.play();
-
-      // Update active class
-      // document.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
+ 
+      // Update active state
       thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
-
+ 
     thumbWrapper.appendChild(thumb);
     thumbsContainer.appendChild(thumbWrapper);
   });
-
+ 
   thumbsArea.appendChild(thumbsContainer);
   container.append(videoArea, thumbsArea);
-
-  block.textContent = '';
+ 
   block.append(container);
 }
