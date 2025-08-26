@@ -1,45 +1,72 @@
 export default function decorate(block) {
-  const videos = Array.from(block.querySelectorAll('a')); // EDS stores DAM refs as links
-
-  if (!videos.length) return;
+  const rows = Array.from(block.children);
+  if (!rows.length) return;
 
   // Main container
   const container = document.createElement('div');
-  container.className = 'videoplaylist';
+  container.className = 'video-playlist';
 
   // Main video section
   const mainVideoWrapper = document.createElement('div');
   mainVideoWrapper.className = 'main-video';
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = videos[0].href; // first video
-  mainVideoWrapper.append(mainVideo);
 
-  // Playlist (right side)
+  // Playlist wrapper
   const playlistWrapper = document.createElement('div');
   playlistWrapper.className = 'playlist';
 
-  videos.forEach((link, index) => {
-    if (index === 0) return;
-    const thumb = document.createElement('video');
-    thumb.className = 'playlist-video';
-    thumb.src = link.href;
-    thumb.muted = true;
+  rows.forEach((row, index) => {
+    const cells = row.querySelectorAll('div');
 
-    // Change main video on click
-    thumb.addEventListener('click', () => {
-      mainVideo.src = link.href;
-      mainVideo.play();
-    });
+    //Extract video URL (from text or <a> inside cell)
+    const videoUrl =
+      cells[0]?.querySelector('a')?.href || cells[0]?.innerText?.trim();
 
-    playlistWrapper.append(thumb);
+    // Extract optional placeholder image
+    const placeholderImage = cells[1]?.querySelector('img')?.src || '';
+    const placeholderAlt = cells[2]?.innerText?.trim() || '';
 
-    // remove links from DOM after processing
+    if (!videoUrl) return;
+
+    if (index === 0) {
+      // First video = main
+      mainVideo.src = videoUrl;
+      if (placeholderImage) {
+        mainVideo.setAttribute('poster', placeholderImage);
+      }
+      mainVideoWrapper.append(mainVideo);
+    } else {
+      // Playlist videos
+      const thumb = document.createElement('video');
+      thumb.className = 'playlist-video';
+      thumb.src = videoUrl;
+      thumb.muted = true;
+
+      if (placeholderImage) {
+        thumb.setAttribute('poster', placeholderImage);
+      }
+      if (placeholderAlt) {
+        thumb.setAttribute('alt', placeholderAlt);
+      }
+
+      thumb.addEventListener('click', () => {
+        mainVideo.src = videoUrl;
+        if (placeholderImage) {
+          mainVideo.setAttribute('poster', placeholderImage);
+        } else {
+          mainVideo.removeAttribute('poster');
+        }
+        mainVideo.play();
+      });
+
+      playlistWrapper.append(thumb);
+    }
   });
 
   container.append(mainVideoWrapper, playlistWrapper);
 
-  // replace block content
+  // Replace original block content
   block.textContent = '';
   block.append(container);
 }
