@@ -20,7 +20,7 @@ export default function decorate(block) {
   playlistWrapper.className = 'playlist';
 
   videos.forEach((link, index) => {
-    if(index === 0) return;
+    if (index === 0) return;
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
     thumb.src = link.href;
