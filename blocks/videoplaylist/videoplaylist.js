@@ -43,7 +43,7 @@ export default function decorate(block) {
       mainVideo.play();
 
       // Update active class
-      document.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
