@@ -7,11 +7,11 @@ export default function decorate(block) {
     try {
       videos = JSON.parse(data.getAttribute('data-videos'));
     } catch (e) {
-      console.error('Invalid JSON in data-videos:', e);
+      // console.error('Invalid JSON in data-videos:', e);
     }
   }
 
-  // If no JSON found, try to read thumbnails from .video-thumbs-area
+  // If no JSON, read from DOM thumbnails
   if (!videos.length) {
     const thumbArea = block.querySelector('.video-thumbs-area, .simplebar-content-wrapper');
     if (thumbArea) {
@@ -23,7 +23,10 @@ export default function decorate(block) {
 
   if (!videos.length) return;
 
-  // Create main container with flex
+  // Destructure videos: first = main, rest = playlist
+  const [mainSrc, ...playlistSrcs] = videos;
+
+  // Main container
   const container = document.createElement('div');
   container.className = 'video-playlist';
 
@@ -33,16 +36,14 @@ export default function decorate(block) {
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = videos[0];
+  mainVideo.src = mainSrc;
   mainVideoWrapper.appendChild(mainVideo);
 
   // Playlist wrapper
   const playlistWrapper = document.createElement('div');
   playlistWrapper.className = 'playlist';
 
-  // Build playlist
-  videos.slice(1).forEach((src) => createPlaylistItem(src));
-
+  // Define function BEFORE using it
   function createPlaylistItem(src) {
     const item = document.createElement('div');
     item.className = 'playlist-item';
@@ -56,12 +57,13 @@ export default function decorate(block) {
 
     item.appendChild(thumb);
 
+    // Click to swap videos
     thumb.addEventListener('click', () => {
       const currentMainSrc = mainVideo.src;
       mainVideo.src = src;
       mainVideo.play();
 
-      // Swap the clicked video with the main one
+      // Replace clicked video with old main
       item.innerHTML = '';
       const oldThumb = document.createElement('video');
       oldThumb.className = 'playlist-video';
@@ -74,6 +76,9 @@ export default function decorate(block) {
 
     playlistWrapper.appendChild(item);
   }
+
+  // Build playlist items
+  playlistSrcs.forEach(src => createPlaylistItem(src));
 
   container.appendChild(mainVideoWrapper);
   container.appendChild(playlistWrapper);
