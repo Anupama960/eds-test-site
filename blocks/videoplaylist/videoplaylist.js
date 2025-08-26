@@ -1,53 +1,58 @@
-export default function decorate(block) {
-  const links = Array.from(block.querySelectorAll('a'));
+function decorate(block) {
+  // Get all videos from DAM references
+  const videoElements = Array.from(block.querySelectorAll('a'));
+  if (!videoElements.length) return;
 
-  if (!links.length) {
-    return;
-  }
+  const videos = videoElements.map(el => el.href);
 
-  // Create containers
-  const mainContainer = document.createElement('div');
-  mainContainer.className = 'gallery-main-video';
+  // Create main container
+  const container = document.createElement('div');
+  container.className = 'videoplaylist';
 
-  const thumbContainer = document.createElement('div');
-  thumbContainer.className = 'gallery-thumbnails';
+  // Create main video wrapper
+  const mainVideoWrapper = document.createElement('div');
+  mainVideoWrapper.className = 'main-video';
 
-  block.innerHTML = '';
-  block.append(mainContainer, thumbContainer);
+  const mainVideo = document.createElement('video');
+  mainVideo.controls = true;
+  mainVideo.src = videos[0];
+  mainVideoWrapper.appendChild(mainVideo);
 
-  // Function to embed DAM video
-  function embedDAMVideo(url) {
-    const video = document.createElement('video');
-    video.src = url;
-    video.controls = true;
-    video.width = 640;
-    video.height = 360;
-    return video;
-  }
+  // Create playlist wrapper (right side)
+  const playlistWrapper = document.createElement('div');
+  playlistWrapper.className = 'playlist';
 
-  // Show first video in main container
-  const firstLink = links[0];
-  const firstVideo = embedDAMVideo(firstLink.href);
-  mainContainer.append(firstVideo);
+  // Add thumbnails for rest of the videos
+  videos.forEach((src, index) => {
+    if (index === 0) return; // skip main video
 
-  // Create thumbnails for rest
-  links.forEach((link, index) => {
-    const thumbVideo = embedDAMVideo(link.href);
-    thumbVideo.width = 160;
-    thumbVideo.height = 90;
-    thumbVideo.muted = true;
-    thumbVideo.playsInline = true;
+    const thumbWrapper = document.createElement('div');
+    thumbWrapper.className = 'playlist-item';
 
-    // When thumbnail clicked → replace main video
-    thumbVideo.addEventListener('click', () => {
-      mainContainer.innerHTML = '';
-      const newMainVideo = embedDAMVideo(link.href);
-      mainContainer.append(newMainVideo);
+    const thumb = document.createElement('video');
+    thumb.className = 'playlist-video';
+    thumb.src = src;
+    thumb.muted = true;
+    thumb.playsInline = true;
+    thumb.preload = 'metadata';
+
+    // Click event to switch main video
+    thumb.addEventListener('click', () => {
+      mainVideo.src = src;
+      mainVideo.play();
+      playlistWrapper.querySelectorAll('.playlist-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      thumbWrapper.classList.add('active');
     });
 
-    // Skip showing first video again in thumbnails
-    if (index > 0) {
-      thumbContainer.append(thumbVideo);
-    }
+    thumbWrapper.appendChild(thumb);
+    playlistWrapper.appendChild(thumbWrapper);
   });
+
+  container.appendChild(mainVideoWrapper);
+  container.appendChild(playlistWrapper);
+
+  block.innerHTML = '';
+  block.appendChild(container);
 }
