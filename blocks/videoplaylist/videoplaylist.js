@@ -60,7 +60,7 @@ export default function decorate(block) {
         mainVideo.play();
       });
 
-      playlistWrapper.append(thumb);
+      playlistWrapper.append(thumb1);
     }
   });
 
