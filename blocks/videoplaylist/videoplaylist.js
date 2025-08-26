@@ -1,11 +1,9 @@
 export default function decorate(block) {
   // Collect all video URLs first
   const links = block.querySelectorAll('a');
-  const videoUrls = Array.from(links).map((link) => link.href);
+  const videoUrls = Array.from(links).map(link => link.href);
 
   if (!videoUrls.length) return;
-
-  const [firstVideo, ...otherVideos] = videoUrls;
 
   // Clear block after collecting URLs
   block.textContent = '';
@@ -20,8 +18,7 @@ export default function decorate(block) {
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  // mainVideo.src = videoUrls[0]; // First video as default
-  mainVideo.src = firstVideo;
+  mainVideo.src = videoUrls[0]; // First video as default
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
@@ -49,10 +46,10 @@ export default function decorate(block) {
     // On click, update main video
     thumbWrapper.addEventListener('click', () => {
       mainVideo.src = url;
-      mainVideo.play();
+mainVideo.play();
 
       // Update active state
-      thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
+      thumbsContainer.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
