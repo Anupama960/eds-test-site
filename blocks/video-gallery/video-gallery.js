@@ -1,48 +1,34 @@
 export default function decorate(block) {
-  // Collect all video URLs from the block (anchor or plain text)
-  const videoUrls = [...block.querySelectorAll('a')]
-    .map(a => a.href)
-    .concat(
-      [...block.querySelectorAll('span, div, p')]
-        .map(el => el.textContent.trim())
-        .filter(url => url.endsWith('.mp4'))
-    );
-
-  if (!videoUrls.length) return;
-
-  block.innerHTML = '';
-
-  const galleryContainer = document.createElement('div');
-  galleryContainer.className = 'video-gallery';
+  const links = [...block.querySelectorAll('a')];
+  if (!links.length) return;
 
   const mainContainer = document.createElement('div');
   mainContainer.className = 'gallery-main-video';
+  block.append(mainContainer);
 
   const thumbContainer = document.createElement('div');
   thumbContainer.className = 'gallery-thumbnails';
+  block.append(thumbContainer);
 
-  // First video in center
-  const firstVideo = document.createElement('video');
-  firstVideo.controls = true;
-  firstVideo.src = videoUrls[0];
-  mainContainer.append(firstVideo);
+  // Show first video
+  const firstLink = links[0];
+  const video = document.createElement('video');
+  video.controls = true;
+  video.src = firstLink.href;
+  mainContainer.append(video);
 
-  // Other videos as thumbnails
-  videoUrls.forEach((url, index) => {
-    if (index === 0) return;
-    const thumb = document.createElement('div');
-    thumb.className = 'gallery-thumb';
-    thumb.textContent = `Video ${index+1}`;
-    thumb.addEventListener('click', () => {
-      mainContainer.innerHTML = '';
-      const newVideo = document.createElement('video');
-      newVideo.controls = true;
-      newVideo.src = url;
-      mainContainer.append(newVideo);
-    });
+  // Add thumbnails
+  links.forEach((link) => {
+    const thumb = document.createElement('video');
+    thumb.src = link.href;
+    thumb.muted = true;
+    thumb.className = 'thumbnail';
     thumbContainer.append(thumb);
-  });
 
-  galleryContainer.append(mainContainer, thumbContainer);
-  block.append(galleryContainer);
+    thumb.addEventListener('click', () => {
+      video.src = link.href;
+      video.play();
+    });
+  });
 }
+ 
