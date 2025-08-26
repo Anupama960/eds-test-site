@@ -1,5 +1,5 @@
 export default function decorate(block) {
-  const videos = Array.from(block.querySelectorAll('a')); // EDS stores DAM refs as links
+  const videos = Array.from(block.querySelectorAll('a'));
 
   if (!videos.length) return;
 
@@ -20,6 +20,7 @@ export default function decorate(block) {
   playlistWrapper.className = 'playlist';
 
   videos.forEach((link, index) => {
+
     if (index === 0) return;
 
     const thumbWrapper = document.createElement('div');
@@ -43,6 +44,9 @@ export default function decorate(block) {
     thumb.addEventListener('click', () => {
       mainVideo.src = link.href;
       mainVideo.play();
+
+      playlistWrapper.querySelectorAll('.playlist-item').forEach(item => item.classList.remove('active'));
+      thumbWrapper.classList.add('active');
     });
 
     thumbWrapper.appendChild(thumb);
