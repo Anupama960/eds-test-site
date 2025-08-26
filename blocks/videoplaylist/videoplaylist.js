@@ -1,8 +1,11 @@
 export default function decorate(block) {
-  const links = Array.from(block.querySelectorAll('a'));
-  if (links.length === 0) return;
+  // Simulated mock video links
+  const mockLinks = [
+    'https://example.com/video1.mp4',
+    'https://example.com/video2.mp4',
+    'https://example.com/video3.mp4',
+  ];
 
-  // Create layout containers
   const layout = document.createElement('div');
   layout.className = 'video-playlist-layout';
 
@@ -32,16 +35,16 @@ export default function decorate(block) {
     return video;
   }
 
-  // Render main video
-  const firstVideo = createVideo(links[0].href, true);
+  // Main video
+  const firstVideo = createVideo(mockLinks[0], true);
   main.append(firstVideo);
 
-  // Render thumbnails
-  links.slice(1).forEach((link) => {
-    const thumb = createVideo(link.href);
+  // Thumbnails
+  mockLinks.slice(1).forEach((url) => {
+    const thumb = createVideo(url);
     thumb.addEventListener('click', () => {
       main.innerHTML = '';
-      const newMain = createVideo(link.href, true);
+      const newMain = createVideo(url, true);
       main.append(newMain);
     });
     thumbs.append(thumb);
