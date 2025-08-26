@@ -10,7 +10,7 @@ function getVideoElement(source, autoplay, background) {
     video.removeAttribute('controls');
     video.addEventListener('canplay', () => {
       video.muted = true;
-if (autoplay) video.play();
+      if (autoplay) video.play();
     });
   }
 
@@ -69,7 +69,7 @@ export default async function decorate(block) {
           const video = mainContainer.querySelector('video');
           if (video) {
             video.muted = true;
-video.play();
+            video.play();
           }
         }
       }
