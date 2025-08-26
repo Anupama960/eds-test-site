@@ -231,25 +231,6 @@
     ]
   },
   {
-    "id": "video-gallery",
-    "fields": [
-      {
-        "component": "multifield",
-        "name": "videos",
-        "label": "Videos",
-        "fields": [
-          {
-            "component": "textfield",
-            "name": "videoUrl",
-            "label": "Video URL (External or DAM Path)",
-            "valueType": "string",
-            "placeholder": "Enter video URL or select from DAM"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "video",
     "fields": [
       {
