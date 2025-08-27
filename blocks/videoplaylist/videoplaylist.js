@@ -54,5 +54,6 @@ export default function decorate(block) {
 
   // Replace original block content
   block.textContent = '';
+  console.log(thumbsContainer.outerHTML);
   block.append(container);
 }

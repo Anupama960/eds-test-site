@@ -1,72 +1,37 @@
-/* Main container */
 .videoplaylist {
   display: flex;
-  flex-direction: column;
   gap: 16px;
-  max-width: 800px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
 }
- 
-/* Main video area */
+
 .video-area {
-  width: 100%;
-  position: relative;
+  flex: 2;
 }
- 
-.main-video {
+
+.video-area video {
   width: 100%;
-  max-height: 450px;
   border-radius: 8px;
-  background: #000;
 }
- 
-/* Thumbnails area */
+
 .video-thumbs-area {
-  width: 100%;
-  overflow-x: auto;
-  padding: 10px 0;
+  flex: 1;
+  width: 200;
+  overflow-y: auto;
+  max-height: 500px;
 }
- 
+
 .video-thumbs {
   display: flex;
-  gap: 12px;
-  width: max-content;
+  flex-direction: column;
+  gap: 8px;
 }
- 
-/* Each thumbnail wrapper */
-.video-thumb {
-  width: 140px;
-  height: 80px;
-  border-radius: 6px;
-  overflow: hidden;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: border 0.3s;
-  flex-shrink: 0;
-  position: relative;
-}
- 
-.video-thumb.active {
-  border-color: #007bff; /* Highlight active thumbnail */
-}
- 
-/* Thumbnail video */
+
 .video-thumb video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  pointer-events: none;
-}
- 
-/* Scrollbar styling */
-.video-thumbs-area::-webkit-scrollbar {
-  height: 6px;
-}
-.video-thumbs-area::-webkit-scrollbar-thumb {
-  background: #ccc;
+  cursor: pointer;
   border-radius: 4px;
 }
-.video-thumbs-area::-webkit-scrollbar-track {
-  background: transparent;
+
+.video-thumb.active {
+  border: 2px solid #0070f3;
+  border-radius: 4px;
 }
