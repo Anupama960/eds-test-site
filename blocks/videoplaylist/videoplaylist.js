@@ -35,11 +35,8 @@ export default function decorate(block) {
     thumb.muted = true;
     thumb.setAttribute('playsinline', '');
     thumb.setAttribute('preload', 'metadata');
-    console.log('Adding thumbnail ${index + 1}: ${link.href}');
-
 
     thumbWrapper.addEventListener('click', () => {
-      console.log('thumbnail ${index + 1} clicked');
       mainVideo.src = link.href;
       mainVideo.play();
 
@@ -55,7 +52,6 @@ export default function decorate(block) {
   container.append(videoArea, thumbsArea);
 
   block.textContent = '';
-  block.append(container); {
-console.log()
-  }
+  block.append(container);
+
 }
