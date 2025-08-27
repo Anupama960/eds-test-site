@@ -1,12 +1,12 @@
+/* eslint-disable no-console */
+
 export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
-  // Create main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
-  // Main video area (center)
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
@@ -18,7 +18,6 @@ export default function decorate(block) {
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
-  // Thumbnails area (right side)
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
@@ -36,8 +35,11 @@ export default function decorate(block) {
     thumb.muted = true;
     thumb.setAttribute('playsinline', '');
     thumb.setAttribute('preload', 'metadata');
+    console.log('Adding thumbnail ${index + 1}: ${link.href}');
+
 
     thumbWrapper.addEventListener('click', () => {
+      console.log('thumbnail ${index + 1} clicked');
       mainVideo.src = link.href;
       mainVideo.play();
 
@@ -52,7 +54,8 @@ export default function decorate(block) {
   thumbsArea.appendChild(thumbsContainer);
   container.append(videoArea, thumbsArea);
 
-  // Replace original block content
   block.textContent = '';
-  block.append(container);
+  block.append(container); {
+console.log()
+  }
 }
