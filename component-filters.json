@@ -58,6 +58,8 @@
   },
   {
     "id": "videoplaylist",
-    "components": []
+    "components": [
+      "videosource"
+    ]
   }
 ]
