@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
-
 export default function decorate(block) {
+return;
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
