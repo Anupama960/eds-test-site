@@ -1,5 +1,5 @@
 export default function decorate(block) {
-return;
+
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
@@ -50,6 +50,6 @@ return;
   thumbsArea.appendChild(thumbsContainer);
   container.append(videoArea, thumbsArea);
 
-  block.textContent = '';
+  // block.textContent = '';
   block.append(container);
 }
