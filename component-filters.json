@@ -45,10 +45,6 @@
     ]
   },
   {
-    "id": "video-gallery",
-    "components": []
-  },
-  {
     "id": "video",
     "components": []
   },
@@ -58,8 +54,6 @@
   },
   {
     "id": "videoplaylist",
-    "components": [
-      "videosource"
-    ]
+    "components": []
   }
 ]

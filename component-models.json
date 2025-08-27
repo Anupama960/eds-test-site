@@ -231,65 +231,6 @@
     ]
   },
   {
-    "id": "video-gallery",
-    "fields": [
-      {
-        "component": "radio",
-        "valueType": "string",
-        "name": "source_type",
-        "label": "Video source",
-        "options": [
-          {
-            "name": "External_URL",
-            "value": "url"
-          },
-          {
-            "name": "DAM_Video",
-            "value": "dam"
-          }
-        ]
-      },
-      {
-        "component": "aem-content",
-        "valueType": "string",
-        "name": "DAM_Video",
-        "label": "Select dam video",
-        "condition": {
-          "field": "source_type",
-          "value": "dam"
-        }
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "External_URL",
-        "label": "video url",
-        "condition": {
-          "field": "source_type",
-          "value": "url"
-        }
-      },
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "value": "",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Auto Play",
-            "children": [
-              {
-                "name": "AutoPlay",
-                "value": "autoplay"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "video",
     "fields": [
       {
@@ -362,16 +303,14 @@
   },
   {
     "id": "videoplaylist",
-    "fields": []
-  },
-  {
-    "id": "videosource",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "videos",
-        "label": "Select Videos from DAM"
+        "label": "Select Videos from DAM",
+        "multi": true,
+        "filter": "video"
       }
     ]
   }
