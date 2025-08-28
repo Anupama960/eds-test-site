@@ -305,12 +305,12 @@
     "id": "videoplaylist",
     "fields": [
       {
-        "component": "reference",
+        "component": "aem-content",
         "valueType": "string",
         "name": "videos",
         "label": "Select Videos from DAM",
         "multi": true,
-        "filter": "video"
+        "value": ""
       }
     ]
   }
