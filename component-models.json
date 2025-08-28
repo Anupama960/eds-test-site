@@ -303,14 +303,17 @@
   },
   {
     "id": "videoplaylist",
+    "fields": []
+  },
+  {
+    "id": "videosource",
     "fields": [
       {
         "component": "aem-content",
         "valueType": "string",
         "name": "videos",
-        "label": "Select Videos from DAM",
-        "multi": true,
-        "value": ""
+        "value": "",
+        "label": "Select Videos from DAM"
       }
     ]
   }
