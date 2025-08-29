@@ -43,7 +43,7 @@
       "id": "videosource",
       "fields": [
         {
-          "component": "reference",
+          "component": "aem-content",
           "valueType": "string",
           "name": "videos",
           "value": "",
