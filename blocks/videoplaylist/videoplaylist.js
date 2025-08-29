@@ -45,7 +45,7 @@ export default function decorate(block) {
       mainVideo.src = link.href;
       mainVideo.play();
 
-      thumbsContainer.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
+      thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
