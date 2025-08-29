@@ -312,7 +312,6 @@
         "component": "reference",
         "valueType": "string",
         "name": "videos",
-        "value": "",
         "label": "Select Videos from DAM"
       }
     ]
