@@ -3,7 +3,7 @@ export default function decorate(block) {
   const urls = sources.map((el) => el.href || el.textContent.trim()).filter(Boolean);
   if (!urls.length) return;
 
-  block.textContent = '';
+  // block.textContent = '';
 
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
