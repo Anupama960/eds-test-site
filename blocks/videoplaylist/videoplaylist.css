@@ -1,8 +1,6 @@
 .videoplaylist {
   display: flex;
   gap: 16px;
-  max-width: 100%;
-  align-items: flex-start;
 }
 
 .video-area {
@@ -12,15 +10,12 @@
 .video-area video {
   width: 100%;
   border-radius: 8px;
-  display: block;
 }
 
 .video-thumbs-area {
   flex: 1;
-  max-width: 220px;
   overflow-y: auto;
   max-height: 500px;
-  padding-right: 4px;
 }
 
 .video-thumbs {
@@ -31,11 +26,8 @@
 
 .video-thumb video {
   width: 100%;
-  height: auto;
-  max-height: 120px;
-  object-fit: cover;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .video-thumb.active {
