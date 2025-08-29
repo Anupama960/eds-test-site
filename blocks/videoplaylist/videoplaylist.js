@@ -62,6 +62,6 @@ export default function decorate(block) {
   container.appendChild(playerWrapper);
 
   // Replace original block content
-  block.textContent = '';
+  // block.textContent = '';
   block.append(container);
 }
