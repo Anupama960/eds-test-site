@@ -44,7 +44,6 @@
       "fields": [
         {
           "component": "aem-content",
-          "multi": "true",
           "valueType": "string",
           "name": "videos",
           "value": "",
