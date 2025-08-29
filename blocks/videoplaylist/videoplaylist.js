@@ -25,7 +25,7 @@ export default function decorate(block) {
   const thumbsContainer = document.createElement('div');
   thumbsContainer.className = 'video-thumbs';
 
-  links.forEach((url, index) => {
+  urls.forEach((url, index) => {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
     thumbWrapper.dataset.videoNum = index;
