@@ -1,6 +1,7 @@
 export default function decorate(block) {
-  const links = Array.from(block.querySelectorAll('a'));
-  if (!links.length) return;
+  const sources = Array.from(block.querySelectorAll('.videosource a, .videosource'));
+  const urls = sources.map((el) => el.href || el.textContent.trim()).filter(Boolean);
+  if (!urls.length) return;
 
   block.textContent = '';
 

@@ -35,9 +35,7 @@
   "models": [
     {
       "id": "videoplaylist",
-      "fields": [
-
-      ]
+      "fields": []
     },
      {
       "id": "videosource",
@@ -46,8 +44,7 @@
           "component": "reference",
           "valueType": "string",
           "name": "videos",
-          "label": "Select Videos from DAM",
-          "repeatable": true
+          "label": "Select Videos from DAM"
         }
       ]
     }
@@ -56,7 +53,7 @@
   "filters": [
     {
       "id": "videoplaylist",
-      "components": [ "videosource"]
+      "components": [ "videoplaylist","videosource"]
     }
   ]
 }

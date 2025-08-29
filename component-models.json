@@ -312,8 +312,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "videos",
-        "label": "Select Videos from DAM",
-        "repeatable": true
+        "label": "Select Videos from DAM"
       }
     ]
   }
