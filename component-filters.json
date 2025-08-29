@@ -54,8 +54,6 @@
   },
   {
     "id": "videoplaylist",
-    "components": [
-      "videosource"
-    ]
+    "components": []
   }
 ]
