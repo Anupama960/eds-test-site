@@ -2,27 +2,20 @@ export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
-  // Main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
-  // ✅ New wrapper for flex layout
-  const playerWrapper = document.createElement('div');
-  playerWrapper.className = 'video-player-wrapper';
-
-  // Main video area
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = links[0].href; // first video as main
+  mainVideo.src = links[0].href;
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
-  // Playlist area
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
@@ -54,14 +47,8 @@ export default function decorate(block) {
   });
 
   thumbsArea.appendChild(thumbsContainer);
+  container.append(videoArea, thumbsArea);
 
-  // ✅ Append video and thumbs inside new wrapper
-  playerWrapper.append(videoArea, thumbsArea);
-
-  // Append everything inside container
-  container.appendChild(playerWrapper);
-
-  // Replace original block content
   // block.textContent = '';
   block.append(container);
 }
