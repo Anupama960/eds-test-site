@@ -52,6 +52,6 @@ export default function decorate(block) {
   container.append(videoArea, thumbsArea);
 
   // block.textContent = '';
-  block.innerHTML = '';
+  // block.innerHTML = '';
   block.append(container);
 }
