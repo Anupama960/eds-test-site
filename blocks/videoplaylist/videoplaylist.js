@@ -2,22 +2,27 @@ export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
-  // block.textContent = '';
-
+  // Main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
+  // ✅ New wrapper for flex layout
+  const playerWrapper = document.createElement('div');
+  playerWrapper.className = 'video-player-wrapper';
+
+  // Main video area
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
   const mainVideo = document.createElement('video');
   mainVideo.controls = true;
-  mainVideo.src = links[0].href;
+  mainVideo.src = links[0].href; // first video as main
   mainVideo.setAttribute('playsinline', '');
   mainVideo.setAttribute('preload', 'metadata');
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
+  // Playlist area
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
@@ -40,7 +45,7 @@ export default function decorate(block) {
       mainVideo.src = link.href;
       mainVideo.play();
 
-      thumbsContainer.querySelectorAll('.video-thumb').forEach((el) => el.classList.remove('active'));
+      thumbsContainer.querySelectorAll('.video-thumb').forEach(el => el.classList.remove('active'));
       thumbWrapper.classList.add('active');
     });
 
@@ -49,9 +54,14 @@ export default function decorate(block) {
   });
 
   thumbsArea.appendChild(thumbsContainer);
-  container.append(videoArea, thumbsArea);
 
-  // block.textContent = '';
-  // block.innerHTML = '';
+  // ✅ Append video and thumbs inside new wrapper
+  playerWrapper.append(videoArea, thumbsArea);
+
+  // Append everything inside container
+  container.appendChild(playerWrapper);
+
+  // Replace original block content
+  block.textContent = '';
   block.append(container);
 }
