@@ -2,9 +2,15 @@ export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
+  // Main container
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
+  // NEW inner wrapper for flex layout
+  const innerWrapper = document.createElement('div');
+  innerWrapper.className = 'videoplaylist-inner';
+
+  // Video area
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
@@ -16,6 +22,7 @@ export default function decorate(block) {
   mainVideo.className = 'main-video';
   videoArea.appendChild(mainVideo);
 
+  // Thumbnails area
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
@@ -47,8 +54,13 @@ export default function decorate(block) {
   });
 
   thumbsArea.appendChild(thumbsContainer);
-  container.append(videoArea, thumbsArea);
 
-  // block.textContent = '';
+  // Add both sections inside the new wrapper
+  innerWrapper.append(videoArea, thumbsArea);
+
+  // Append inner wrapper inside container
+  container.appendChild(innerWrapper);
+
+  // Add container into block
   block.append(container);
 }

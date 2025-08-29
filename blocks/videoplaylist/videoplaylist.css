@@ -1,41 +1,59 @@
-.videoplaylist .video-player-wrapper {
+/* Hide original blue links without removing them */
+.videoplaylist .button-container {
+  display: none;
+}
+
+/* Apply flex only to the new wrapper */
+.videoplaylist-inner {
   display: flex;
+  justify-content: center;
   align-items: flex-start;
   gap: 20px;
 }
 
+/* Main video styling */
 .video-area {
-  flex: 2;
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 
 .main-video {
+  max-width: 640px;
   width: 100%;
-  max-width: 800px;
+  height: auto;
   border-radius: 8px;
+  background: #000;
 }
 
+/* Thumbnails on the right */
 .video-thumbs-area {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-thumbs {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 500px;
-  overflow-y: auto;
 }
 
 .video-thumb {
   cursor: pointer;
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
+  transition: border-color 0.3s ease;
 }
 
 .video-thumb.active {
-  border-color: #0072ce;
+  border-color: #007bff;
 }
 
-.video-thumb video {
-  width: 100%;
-  display: block;
+.playlist-video {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  background: #000;
 }
-
