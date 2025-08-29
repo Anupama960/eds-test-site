@@ -43,8 +43,8 @@
       "id": "videosource",
       "fields": [
         {
-          "component": "text",
-          "valueType": "string",
+          "component": "reference",
+          "valueType": "string[]",
           "name": "videos",
           "label": "Select Videos from DAM"
         }
