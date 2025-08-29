@@ -2,6 +2,8 @@ export default function decorate(block) {
   const links = Array.from(block.querySelectorAll('a'));
   if (!links.length) return;
 
+  // block.textContent = '';
+
   const container = document.createElement('div');
   container.className = 'videoplaylist videoplaylist--with-thumbs';
 
