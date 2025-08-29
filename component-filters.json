@@ -55,7 +55,6 @@
   {
     "id": "videoplaylist",
     "components": [
-      "videoplaylist",
       "videosource"
     ]
   }

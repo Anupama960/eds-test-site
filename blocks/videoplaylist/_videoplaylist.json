@@ -53,7 +53,7 @@
   "filters": [
     {
       "id": "videoplaylist",
-      "components": [ "videoplaylist","videosource"]
+      "components": ["videosource"]
     }
   ]
 }
