@@ -244,14 +244,16 @@
   },
   {
     "id": "videogallery",
+    "fields": []
+  },
+  {
+    "id": "videosource",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "videoURL",
-        "label": "Video URL",
-        "value": "<Video URL>",
-        "multi": "true"
+        "label": "Video URL"
       }
     ]
   },
@@ -289,6 +291,7 @@
         "valueType": "string",
         "name": "External_URL",
         "label": "video url",
+        "multi": "true",
         "condition": {
           "field": "source_type",
           "value": "url"
