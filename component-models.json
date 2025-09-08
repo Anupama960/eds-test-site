@@ -323,14 +323,16 @@
   },
   {
     "id": "videoplaylist",
+    "fields": []
+  },
+  {
+    "id": "videosource",
     "fields": [
       {
         "component": "reference",
-        "valueType": "string",
+        "valueType": "string[]",
         "name": "videos",
-        "label": "Select Videos from DAM",
-        "multi": true,
-        "filter": "video"
+        "label": "Select Videos from DAM"
       }
     ]
   }
