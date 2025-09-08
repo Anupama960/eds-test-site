@@ -43,14 +43,6 @@
       "id": "videosource",
       "fields": [
         {
-          "component": "reference",
-          "valueType": "string",
-          "name": "videos",
-          "label": "Select Videos from DAM",
-          "multi": true,
-          "filter": "video"
-        },
-        {
           "component": "text",
           "valueType": "string",
           "name": "external_url",
