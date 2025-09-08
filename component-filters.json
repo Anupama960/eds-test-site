@@ -50,7 +50,9 @@
   },
   {
     "id": "videogallery",
-    "components": []
+    "components": [
+      "videosource"
+    ]
   },
   {
     "id": "videoplayer",
