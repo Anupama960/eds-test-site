@@ -258,7 +258,7 @@
         "filter": "video"
       },
       {
-        "component": "aem-content",
+        "component": "text",
         "valueType": "string",
         "name": "external_url",
         "label": "External Videos URLs",
