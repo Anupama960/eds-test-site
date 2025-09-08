@@ -1,9 +1,7 @@
-/* Hide original blue links without removing them */
 .videoplaylist .button-container {
   display: none;
 }
 
-/* Apply flex only to the new wrapper */
 .videoplaylist-inner {
   display: flex;
   justify-content: center;
@@ -11,7 +9,6 @@
   gap: 20px;
 }
 
-/* Main video styling */
 .video-area {
   flex: 1;
   display: flex;
@@ -26,7 +23,6 @@
   background: #000;
 }
 
-/* Thumbnails on the right */
 .video-thumbs-area {
   display: flex;
   flex-direction: column;

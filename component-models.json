@@ -243,6 +243,26 @@
     ]
   },
   {
+    "id": "videogallery",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "videos",
+        "label": "Select Videos from DAM",
+        "multi": true,
+        "filter": "video"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "external url",
+        "label": "External Videos URLs",
+        "multi": true
+      }
+    ]
+  },
+  {
     "id": "videoplayer",
     "fields": [
       {
