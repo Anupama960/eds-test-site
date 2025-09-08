@@ -250,7 +250,8 @@
         "valueType": "string",
         "name": "videoURL",
         "label": "Video URL",
-        "value": "<Video URL>"
+        "value": "<Video URL>",
+        "multi": "true"
       }
     ]
   },
