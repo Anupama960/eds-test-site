@@ -244,6 +244,10 @@
   },
   {
     "id": "videogallery",
+    "fields": []
+  },
+  {
+    "id": "videosource",
     "fields": [
       {
         "component": "reference",
@@ -330,9 +334,11 @@
     "fields": [
       {
         "component": "reference",
-        "valueType": "string[]",
+        "valueType": "string",
         "name": "videos",
-        "label": "Select Videos from DAM"
+        "label": "Select Videos from DAM",
+        "multi": true,
+        "filter": "video"
       }
     ]
   }
