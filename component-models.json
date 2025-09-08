@@ -244,16 +244,61 @@
   },
   {
     "id": "videogallery",
-    "fields": []
-  },
-  {
-    "id": "videosource",
     "fields": [
+      {
+        "component": "radio",
+        "valueType": "string",
+        "name": "source_type",
+        "label": "Video source",
+        "options": [
+          {
+            "name": "External_URL",
+            "value": "url"
+          },
+          {
+            "name": "DAM_Video",
+            "value": "dam"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "DAM_Video",
+        "label": "Select dam video",
+        "condition": {
+          "field": "source_type",
+          "value": "dam"
+        }
+      },
       {
         "component": "text",
         "valueType": "string",
-        "name": "videoURL",
-        "label": "Video URL"
+        "name": "External_URL",
+        "label": "video url",
+        "multi": "true",
+        "condition": {
+          "field": "source_type",
+          "value": "url"
+        }
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Auto Play",
+            "children": [
+              {
+                "name": "AutoPlay",
+                "value": "autoplay"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
