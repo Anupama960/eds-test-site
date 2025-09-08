@@ -244,17 +244,13 @@
   },
   {
     "id": "videogallery",
-    "fields": []
-  },
-  {
-    "id": "videosource",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
-        "name": "external_url",
-        "label": "External Videos URLs",
-        "multi": true
+        "name": "videoURL",
+        "label": "Video URL",
+        "value": "<Video URL>"
       }
     ]
   },
