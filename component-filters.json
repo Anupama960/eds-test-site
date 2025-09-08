@@ -51,7 +51,7 @@
   {
     "id": "videogallery",
     "components": [
-      "videosource"
+      "videoelement"
     ]
   },
   {

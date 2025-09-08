@@ -247,7 +247,7 @@
     "fields": []
   },
   {
-    "id": "videosource",
+    "id": "videoelement",
     "fields": [
       {
         "component": "text",
