@@ -256,7 +256,7 @@
       {
         "component": "aem-content",
         "valueType": "string",
-        "name": "external url",
+        "name": "external_url",
         "label": "External Videos URLs",
         "multi": true
       }

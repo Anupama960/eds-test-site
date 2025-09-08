@@ -11,7 +11,7 @@ export default function decorate(block) {
   const videoArea = document.createElement('div');
   videoArea.className = 'video-area';
 
-   function getVideoElement(url, autoplay = false) {
+  function getVideoElement(url, autoplay = false) {
     const isYoutube = url.includes('youtube.com') || url.includes('youtu.be');
     const isVimeo = url.includes('vimeo.com');
 
@@ -59,7 +59,6 @@ export default function decorate(block) {
   let mainVideo = getVideoElement(links[0].href);
   videoArea.appendChild(mainVideo);
 
-
   const thumbsArea = document.createElement('div');
   thumbsArea.className = 'video-thumbs-area';
 
@@ -70,7 +69,6 @@ export default function decorate(block) {
     const thumbWrapper = document.createElement('div');
     thumbWrapper.className = `video-thumb ${index === 0 ? 'active' : ''}`;
     thumbWrapper.dataset.videoNum = index;
-
 
     const thumb = document.createElement('video');
     thumb.className = 'playlist-video';
@@ -95,7 +93,6 @@ export default function decorate(block) {
   });
 
   thumbsArea.appendChild(thumbsContainer);
-
 
   innerWrapper.append(videoArea, thumbsArea);
   container.append(innerWrapper);
