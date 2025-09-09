@@ -56,7 +56,9 @@
   },
   {
     "id": "videoplayer",
-    "components": []
+    "components": [
+      "videoel"
+    ]
   },
   {
     "id": "videoplaylist",
