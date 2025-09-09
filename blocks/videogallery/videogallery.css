@@ -11,16 +11,21 @@
   gap: 20px;
 }
  
-
 .video-area {
   flex: 3;
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 ratio */
 }
  
 .video-area iframe,
 .video-area video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  aspect-ratio: 16/9;
+  height: 100%;
+  display: block;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -43,11 +48,11 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
  
 .video-thumb.active {
-  outline: 3px solid #007aff;
+  outline: 3px solid #0072ff;
 }
  
 .video-thumb:hover {
@@ -59,7 +64,6 @@
 .video-thumb iframe {
   width: 100%;
   height: auto;
-  aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 6px;
 }
