@@ -10,3 +10,15 @@
   height: auto;
   border-radius: 12px;
 }
+
+
+.videoplaylist-inner {
+  display: flex;
+  gap: 20px;
+}
+
+
+.video-thumb {
+  cursor: pointer;
+  border-radius: 8px;
+}
