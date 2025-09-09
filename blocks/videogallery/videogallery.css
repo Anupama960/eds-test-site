@@ -1,0 +1,46 @@
+.videoplaylist-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* spacing between video and thumbnails */
+  flex-wrap: wrap; /* optional: wrap on smaller screens */
+}
+
+.video-area {
+  flex: 2;
+  min-width: 300px;
+}
+
+.video-thumbs-area {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.video-thumb {
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.video-thumb.active {
+  border-color: #0078d4; /* highlight active thumbnail */
+}
+
+.playlist-thumbnail {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Hide original links */
+.videogallery a {
+  display: none !important;
+}
