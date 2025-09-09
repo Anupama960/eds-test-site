@@ -1,46 +1,69 @@
+.videogallery {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .videoplaylist-inner {
   display: flex;
   flex-direction: row;
-  gap: 20px; /* spacing between video and thumbnails */
-  flex-wrap: wrap; /* optional: wrap on smaller screens */
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .video-area {
-  flex: 2;
-  min-width: 300px;
+  flex: 3;
+}
+
+.video-area iframe,
+.video-area video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .video-thumbs-area {
   flex: 1;
-  min-width: 200px;
-  display: flex;
-  flex-direction: column;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 .video-thumbs {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .video-thumb {
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: border-color 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .video-thumb.active {
-  border-color: #0078d4; /* highlight active thumbnail */
+  outline: 3px solid #007aff;
 }
 
-.playlist-thumbnail {
+.video-thumb:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.video-thumb video,
+.video-thumb iframe {
   width: 100%;
   height: auto;
+  aspect-ratio: 16/9;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-/* Hide original links */
+.videosource a,
 .videogallery a {
   display: none !important;
 }
