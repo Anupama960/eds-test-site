@@ -22,3 +22,8 @@
   cursor: pointer;
   border-radius: 8px;
 }
+
+
+.video-thumb.active {
+  outline: 3px solid #007aff;
+}
