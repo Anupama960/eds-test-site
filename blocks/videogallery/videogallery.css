@@ -1,9 +1,11 @@
+/* Container for the gallery */
 .videogallery {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* Inner wrapper: main video + thumbnails */
 .videoplaylist-inner {
   display: flex;
   flex-direction: row;
@@ -11,25 +13,7 @@
   gap: 20px;
 }
  
-.video-area {
-  flex: 3;
-  position: relative;
-  width: 100%;
-  padding-top: 56.25%; /* 16:9 ratio */
-}
- 
-.video-area iframe,
-.video-area video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
+/* Thumbnails container */
 .video-thumbs-area {
   flex: 1;
   max-height: 500px;
@@ -37,12 +21,14 @@
   padding-right: 8px;
 }
 
+/* Thumbnails list */
 .video-thumbs {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* Individual thumbnail wrapper */
 .video-thumb {
   cursor: pointer;
   border-radius: 8px;
@@ -51,24 +37,37 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
  
+/* Active thumbnail */
 .video-thumb.active {
   outline: 3px solid #0072ff;
 }
  
+/* Hover effect */
 .video-thumb:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.video-thumb video,
-.video-thumb iframe {
+/* Video inside thumbnail */
+.video-thumb video {
   width: 100%;
   height: auto;
+  display: block;
   object-fit: cover;
   border-radius: 6px;
 }
 
+/* Hide original anchor links */
 .videoelement a,
 .videogallery a {
   display: none !important;
+}
+
+/* Optional: thin scrollbar for thumbnails */
+.video-thumbs-area::-webkit-scrollbar {
+  width: 6px;
+}
+.video-thumbs-area::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 3px;
 }
