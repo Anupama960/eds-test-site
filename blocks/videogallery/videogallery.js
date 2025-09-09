@@ -23,7 +23,7 @@ export default function decorate(block) {
       } catch (e) {
         videoId = url.split('/').pop();
       }
-      videoId = videoId.split('?')[0];
+      [videoId] = videoId.split('?');
 
       const params = new URLSearchParams({
         autoplay: autoplay ? 1 : 0,
@@ -75,7 +75,7 @@ export default function decorate(block) {
       } catch (e) {
         videoId = url.split('/').pop();
       }
-      videoId = videoId.split('?')[0];
+      [videoId] = videoId.split('?');
       return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
     }
     if (url.includes('vimeo.com')) {
@@ -88,7 +88,7 @@ export default function decorate(block) {
     return null;
   }
 
-  let mainVideo = getVideoElement(links[0].href);
+  const mainVideo = getVideoElement(links[0].href);
   videoArea.appendChild(mainVideo);
 
   const thumbsArea = document.createElement('div');
