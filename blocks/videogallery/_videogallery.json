@@ -47,13 +47,6 @@
           "valueType": "string[]",
           "name": "videos",
           "label": "Videos URLs"
-        },
-        {
-          "component": "richtext",
-          "name": "text",
-          "value": "",
-          "label": "Text",
-          "valueType": "string"
         }
       ]
     }
