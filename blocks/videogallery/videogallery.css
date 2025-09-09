@@ -65,5 +65,5 @@
 
 .videosource a,
 .videogallery a {
-  display: none !important;
+  display: none;
 }
