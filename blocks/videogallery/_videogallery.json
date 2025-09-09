@@ -46,8 +46,7 @@
           "component": "text",
           "valueType": "string[]",
           "name": "videos",
-          "label": "Videos URLs",
-		  "multi" : "true"
+          "label": "Videos URLs"
         }
       ]
     }
