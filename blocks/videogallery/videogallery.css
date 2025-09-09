@@ -19,8 +19,9 @@
 .video-area video {
   width: 100%;
   height: auto;
+  aspect-ratio: 16/9;
   border-radius: 12px;
-  box-shadow: 0 4px 12px #ccc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .video-thumbs-area {
@@ -41,25 +42,23 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .video-thumb.active {
   outline: 3px solid #007aff;
 }
 
-.video-thumb:hover {
-  box-shadow: 0 4px 10px #ccc;
-}
-
-.video-thumb img,
-.video-thumb iframe,
-.video-thumb video {
+.video-thumb video,
+.video-thumb iframe {
   width: 100%;
   height: auto;
+  aspect-ratio: 16/9;
   object-fit: cover;
   border-radius: 6px;
 }
 
+.videosource a,
 .videogallery a {
   display: none;
 }
