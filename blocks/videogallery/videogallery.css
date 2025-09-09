@@ -19,9 +19,9 @@
 .video-area video {
   width: 100%;
   height: auto;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .video-thumbs-area {
@@ -51,19 +51,19 @@
 
 .video-thumb:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .video-thumb video,
-.video-thumb iframe {
+.video-thumb iframe,
+.video-thumb img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 6px;
 }
 
-.videosource a,
 .videogallery a {
   display: none;
 }
