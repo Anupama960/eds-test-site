@@ -231,6 +231,25 @@
     ]
   },
   {
+    "id": "quote",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "quote",
+        "value": "",
+        "label": "Quote",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "author",
+        "label": "Author",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "video",
     "fields": [
       {

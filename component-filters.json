@@ -45,6 +45,10 @@
     ]
   },
   {
+    "id": "quote",
+    "components": []
+  },
+  {
     "id": "video",
     "components": []
   },
